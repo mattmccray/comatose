@@ -1,6 +1,7 @@
 module Comatose
-  # Wrapper around a Liquid::Drop
+
   class ComatoseDrop < Liquid::Drop
+
     private :initialize
     
     def before_method(method)
@@ -22,7 +23,6 @@ module Comatose
     end
   end
 
-  # Comatose Module...
   class << self
 
     # Returns/initializes a hash for storing ComatoseDrops
@@ -51,7 +51,7 @@ end
 
 module IncludeFilter
   def include(input)
-    page = Comatose::Page.find_by_path(input)
+    page = ComatosePage.find_by_path(input)
     params = @context['params']
     # TODO: Add more of the context into the included page's context...
     page.to_html( { 'params' => params  } )

@@ -37,7 +37,7 @@ namespace :comatose do
       root = ENV['FROM'] || ''
       target = ENV['TO_FILE'] || 'db/comatose-pages.yml'
       # Nested hash of the page tree...
-      from = Comatose::Page.find_by_path(root)
+      from = ComatosePage.find_by_path(root)
       if from
         data = page_to_hash( from ) 
         File.open(target, 'w') {|f| f.write data.to_yaml }
@@ -54,7 +54,7 @@ namespace :comatose do
 
       src = ENV['FROM_FILE'] || 'db/comatose-pages.yml'
       root = ENV['TO'] || ''
-      target = (root == '') ? Comatose::Page.root : Comatose::Page.find_by_path(root)
+      target = (root == '') ? ComatosePage.root : ComatosePage.find_by_path(root)
       data = YAML::load( File.open(src) )
       #hash_to_page(data, target)
       if target

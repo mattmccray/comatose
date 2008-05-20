@@ -11,8 +11,11 @@ Comatose Admin Controller should:
  - not update pages with invalid data
  - delete a page
  - reorder pages
+ - set runtime mode
+
 Comatose Controller should:
  - show pages based on path_info
+
 Class Options should:
  - allow nil as a default
  - allow boolean defaults
@@ -21,6 +24,7 @@ Class Options should:
  - allow symbolic defaults
  - allow array literals as defaults
  - allow hash literals as defaults
+
 Comatose Page should:
  - create page
  - create a new version of an updated page
@@ -30,9 +34,11 @@ Comatose Page should:
  - generate slugs correctly
  - generate page paths correctly
  - update page paths when pages are moved
+ - set an AR error with processor syntax error info
  - render body text accurately
  - render data from parameterized calls too
  - render data from a Drop
+
 Processing Context should:
  - process liquid tags with no filters correctly
  - process erb tags correctly
@@ -44,6 +50,7 @@ Processing Context should:
  - prevent access to protected properties and methods when processing with Liquid
  - allow referenceing of defined ComatoseDrops
  - let ComatoseDrop errors bubble upward
+
 Text Filters should:
  - not alter output when using filter :none
  - convert newlines into <br/>s when using :simple filter

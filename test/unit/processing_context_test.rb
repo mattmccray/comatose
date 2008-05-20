@@ -1,7 +1,5 @@
 require File.dirname(__FILE__) + '/../test_helper'
-require 'comatose/page'
-require 'comatose/page_wrapper'
-require 'comatose/processing_context'
+require 'comatose'
 
 class ProcessingContextTest < Test::Unit::TestCase
 

@@ -35,7 +35,7 @@ protected
   end
   
   def render_comatose_page(page_path, params)
-    if page = Comatose::Page.find_by_path(page_path)
+    if page = ComatosePage.find_by_path(page_path)
       # Add the request params to the context...
       params[:locals]['params'] = controller.params
       html = page.to_html( params[:locals] )

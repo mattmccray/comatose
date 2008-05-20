@@ -1,4 +1,4 @@
-module Comatose::AdminHelper
+module ComatoseAdminHelper
 
   #  Checks the hidden_meta_fields class variable for a specified field name...
   def show_field?(key)
@@ -34,10 +34,4 @@ module Comatose::AdminHelper
     select_box
   end
   
-end
-
-
-# Create the ComatoseAdminHelper, er, helper
-class ComatoseAdminHelper 
-  include Comatose::AdminHelper
 end

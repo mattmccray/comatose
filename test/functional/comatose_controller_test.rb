@@ -1,8 +1,9 @@
 require File.dirname(__FILE__) + '/../test_helper'
-require 'comatose/controller'
+require 'comatose_controller'
+require 'comatose_helper'
 
 # Re-raise errors caught by the controller.
-class ComatoseController < Comatose::Controller
+class ComatoseController
   def rescue_action(e) raise e end
 end
 
@@ -24,18 +25,18 @@ class ComatoseControllerTest < Test::Unit::TestCase
   should "show pages based on path_info" do
 
     # Get the faq page...
-    get :show, :page=>'faq', :index=>'', :layout=>'comatose_content', :use_cache=>'false'
+    get :show, :page=>'faq', :index=>'', :layout=>'comatose_content.html.erb', :use_cache=>'false'
     assert_response :success
     assert_tag :tag=>'h1', :child=>/Frequently Asked Questions/
 
     # Get a question page using rails 2.0 array style...
-    get :show, :page=>['faq','question-one'], :index=>'', :layout=>'comatose_content', :use_cache=>'false'
+    get :show, :page=>['faq','question-one'], :index=>'', :layout=>'comatose_content.html.erb', :use_cache=>'false'
     assert_response :success
     assert_tag :tag=>'title', :child=>/Question/
 
     # Get a question page using rails 1.x path style...
     get :show, :page=>ActionController::Routing::PathSegment::Result.new_escaped(['faq','question-one']), 
-        :index=>'', :layout=>'comatose_content', :use_cache=>'false'
+        :index=>'', :layout=>'comatose_content.html.erb', :use_cache=>'false'
     assert_response :success
     assert_tag :tag=>'title', :child=>/Question/
   end

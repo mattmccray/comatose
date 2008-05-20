@@ -1,9 +1,9 @@
 = Comatose
 
-Version:: 0.8
+Version:: 2.0 (uber-alpha)
 Author::  M@ McCray
-Website:: www.mattmccray.com
-Email::   darthapo at gmail dot com
+Website:: comatose.rubyforge.org
+Email::   matt at elucidata dot net
 
 
 *Comatose* is a micro CMS designed for being embedded into existing Rails 
@@ -23,6 +23,23 @@ existing applications. If you need something more, I would recommend
 looking into Radiant.
 
 For more information, see the 'Getting Started' guide: http://comatose.rubyforge.org
+
+=== Requirements
+
+ * Rails 2+ (2.1)
+ * <tt>acts_as_list</tt> and <tt>acts_as_tree</tt> plugins are required
+
+
+=== Development Notes
+
+*NOTE*: This is an active branch of Comatose that is built specifically for Rails 2.1.
+        I will *probably* remove any legacy support.
+
+ * Make comatose fully self-contained, which means removing acts_as_(tree|list)
+ * Move to gem plugin
+ * Comatose.configure needs to be an initializer (update docs)
+ * Go through bugs on 1x branch from google code and ensure they are fixed
+ * Give access to all the default rails helpers to Comatose Pages by default?
 
 
 == Installation
@@ -48,6 +65,9 @@ routing doesn't match any of your controllers.
 
 
 == Upgrading
+
+*NOTE*: This is an experimental 2.0 branch, so upgrading is possible at
+        the moment, but these instructions may not work for much longer.
 
 If you are upgrading from an older version of Comatose (version 0.3, 
 0.4, 0.5, or 0.6), then you will need to re-install the comatose 

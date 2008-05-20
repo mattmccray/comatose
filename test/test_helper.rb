@@ -13,11 +13,11 @@ class Test::Unit::TestCase
   self.use_instantiated_fixtures  = false
 
   def create_page(options={})
-    Comatose::Page.create({ :title => 'Comatose Page', :author=>'test', :parent_id=>1 }.merge(options))
+    ComatosePage.create({ :title => 'Comatose Page', :author=>'test', :parent_id=>1 }.merge(options))
   end
   
   def comatose_page(sym)
-    Comatose::Page.find_by_slug(sym.to_s.dasherize)
+    ComatosePage.find_by_slug(sym.to_s.dasherize)
   end
   
   def assert_difference(object, method = nil, difference = 1)

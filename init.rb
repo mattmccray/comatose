@@ -6,6 +6,7 @@ require 'liquid' unless defined?(Liquid)
 require 'comatose'
 require 'text_filters'
 
+require 'support/inline_rendering'
 require 'support/route_mapper'
 
 # if defined? ActionController::Routing::RouteSet::Mapper

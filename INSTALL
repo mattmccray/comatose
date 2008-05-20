@@ -9,7 +9,7 @@ From here you'll want to run:
 
 When that's finished, run:
 
-  $ rake migrate
+  $ rake db:migrate
 
 That's it for the Comatose setup! Now just add the following line to the bottom of your config/routes.rb file:
 

@@ -5,7 +5,7 @@ class ComatosePageTest < Test::Unit::TestCase
   fixtures :comatose_pages
 
   should "create page" do
-    assert_difference Comatose::Page, :count do
+    assert_difference ComatosePage, :count do
       page = create_page :title=>'New Page Name'
       assert !page.new_record?, "#{page.errors.full_messages.to_sentence}"
     end
@@ -25,7 +25,7 @@ class ComatosePageTest < Test::Unit::TestCase
   end
   
   should "not allow creation of page when missing a title" do
-    assert_no_difference Comatose::Page, :count do
+    assert_no_difference ComatosePage, :count do
       p = create_page(:title => nil)
       assert p.errors.on(:title)
     end
@@ -42,6 +42,7 @@ class ComatosePageTest < Test::Unit::TestCase
   should "generate slugs correctly" do
     assert_equal 'hello-how-are-you',     new_page_slug( "Hello, How Are You?" )
     assert_equal 'i-have-too-much-space', new_page_slug( "I    have  too   much space" )
+    assert_equal 'i-have-leading-and-trailing-space', new_page_slug( "   I have leading and trailing space  " )
     assert_equal 'what-about-dashes',     new_page_slug( "What about - dashes?" )
     assert_equal 'a-bizarre-title',       new_page_slug( 'A !@!@#$%^<>&*()_+{} Bizarre TiTle!' )
     assert_equal '001-numbers-too',       new_page_slug( "001 Numbers too" )
@@ -81,6 +82,11 @@ class ComatosePageTest < Test::Unit::TestCase
     assert_equal 'faq/q-1/params', page.full_path
   end
 
+  should "set an AR error with processor syntax error info" do
+    page = create_page :title=>'Title Here', :body=>'h1. {% crap %}'
+    assert !page.save, page.errors.full_messages.to_sentence
+  end
+
   should "render body text accurately" do
     assert_equal "<h1>Home Page</h1>\n\n\n\t<p>This is your <strong>home page</strong>.</p>", root_page.to_html
     assert_equal "<h1>Frequently Asked Questions</h1>\n\n\n\t<h2><a href=\"/faq/question-one\">Question One?</a></h2>\n\n\n<p>Content for <strong>question one</strong>.</p>\n\n\t<h2><a href=\"/faq/question-two\">Question Two?</a></h2>\n\n\n<p>Content for <strong>question two</strong>.</p>", faq_page.to_html
@@ -108,7 +114,7 @@ class ComatosePageTest < Test::Unit::TestCase
     end
     
     def root_page
-      Comatose::Page.root
+      ComatosePage.root
     end
     
     def faq_page

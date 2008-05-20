@@ -1,4 +1,4 @@
-# Comatose::Page attributes
+# ComatosePage attributes
 #  - parent_id
 #  - title
 #  - full_path
@@ -11,17 +11,17 @@
 #  - version
 #  - updated_on
 #  - created_on
-class Comatose::Page < ActiveRecord::Base
+class ComatosePage < ActiveRecord::Base
   
   set_table_name 'comatose_pages'
   
   # Only versions the content... Not all of the meta data or position
-  acts_as_versioned :if_changed => [:title, :slug, :keywords, :body]
+  acts_as_versioned :table_name=>'comatose_page_versions', :if_changed => [:title, :slug, :keywords, :body]
   
   define_option :active_mount_info, {:root=>'', :index=>''}
 
   acts_as_tree :order => "position, title"
-  acts_as_list :scope=>:parent_id
+  acts_as_list :scope => :parent_id
 
   #before_create :create_full_path
   before_save :cache_full_path, :create_full_path
@@ -30,14 +30,14 @@ class Comatose::Page < ActiveRecord::Base
   # Using before_validation so we can default the slug from the title
   before_validation do |record|
     # Create slug from title
-    if (record[:slug].nil? or record[:slug].empty?) and !record[:title].nil?
-      record[:slug] = record[:title].downcase.gsub( /[^-a-z0-9~\s\.:;+=_]/, '').gsub(/[\s\.:;=_+]+/, '-').gsub(/[\-]{2,}/, '-').to_s
+    if record.slug.blank? and !record.title.blank?
+      record.slug = record.title.downcase.lstrip.rstrip.gsub( /[^-a-z0-9~\s\.:;+=_]/, '').gsub(/[\s\.:;=_+]+/, '-').gsub(/[\-]{2,}/, '-').to_s
     end
   end
   
   # Manually set these, because record_timestamps = false
   before_create do |record|
-    record[:created_on] = record[:updated_on] = Time.now
+    record.created_on = record.updated_on = Time.now
   end
 
   validates_presence_of :title, :on => :save, :message => "must be present"
@@ -45,15 +45,13 @@ class Comatose::Page < ActiveRecord::Base
   validates_presence_of :parent_id, :on=>:create, :message=>"must be present"
 
   # Tests ERB/Liquid content...
-  validates_each :body do |record, attr, value|
-    unless value.nil?
-      begin
-        body_html = record.to_html
-      rescue SyntaxError
-        record.errors.add :body, "content error: #{$!.to_s.gsub('<', '&lt;')}"
-      rescue 
-        record.errors.add :body, "content error: #{$!.to_s.gsub('<', '&lt;')}"
-      end
+  validates_each :body, :allow_nil=>true, :allow_blank=>true do |record, attr, value|
+    begin
+      body_html = record.to_html
+    rescue SyntaxError
+      record.errors.add :body, "syntax error: #{$!.to_s.gsub('<', '&lt;')}"
+    rescue 
+      record.errors.add :body, "content error: #{$!.to_s.gsub('<', '&lt;')}"
     end
   end
     
@@ -73,20 +71,18 @@ class Comatose::Page < ActiveRecord::Base
   # Check if a page has a selected keyword... NOT case sensitive. 
   # So the keyword McCray is the same as mccray
   def has_keyword?(keyword)
-     begin
-       @key_list ||= (self[:keywords] || '').downcase.split(',').map {|k| k.strip }
-       @key_list.include? keyword.to_s.downcase
-     rescue
-       false
-     end
+     @key_list ||= (self.keywords || '').downcase.split(',').map {|k| k.strip }
+     @key_list.include? keyword.to_s.downcase
+   rescue
+     false
    end
 
   # Returns the page's content, transformed and filtered...
   def to_html(options={})
     #version = options.delete(:version)
-    text = self[:body]
+    text = self.body
     binding = Comatose::ProcessingContext.new(self, options)
-    filter_type = self[:filter_type] || '[No Filter]'
+    filter_type = self.filter_type || '[No Filter]'
     TextFilters.transform(text, binding, filter_type, Comatose.config.default_processor)
   end
 
@@ -118,26 +114,28 @@ protected
         path = "#{parent_node.full_path}/#{self.slug}"
         # strip leading space, if there is one...
         path = path[1..-1] if path.starts_with? "/"
-        self[:full_path] = path || ""
+        self.full_path = path || ""
      else
         # I'm the root -- My path is blank
-        self[:full_path] = ""
+        self.full_path = ""
      end
+  end
+  def create_full_path!
+    create_full_path
+    save
   end
   
   # Caches old path (before save) for comparison later
   def cache_full_path
-    @old_full_path = self[:full_path]
+    @old_full_path = self.full_path
   end
 
   # Updates all this content's child URI paths
-  def update_children_full_path(should_save=nil)
-    # We should only mess with this if the :full_path has changed...
-    should_save ||= @old_full_path != self[:full_path] ? true : false
+  def update_children_full_path(should_save=true)
+    # OPTIMIZE: Only update all the children if the :slug/:fullpath is different
     for child in self.children
-      child.create_full_path
-      child.save
+      child.create_full_path! unless child.frozen?
       child.update_children_full_path(should_save)
-    end if should_save
+    end
   end
 end

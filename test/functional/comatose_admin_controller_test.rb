@@ -1,9 +1,10 @@
 require File.dirname(__FILE__) + '/../test_helper'
-require 'comatose/admin_controller'
+require 'comatose_admin_controller'
+require 'comatose_admin_helper'
 require 'text_filters'
 
 # Re-raise errors caught by the controller.
-class ComatoseAdminController < Comatose::AdminController
+class ComatoseAdminController
   def rescue_action(e) raise e end
 end
 

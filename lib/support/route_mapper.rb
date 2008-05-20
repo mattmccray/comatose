@@ -5,7 +5,7 @@ class ActionController::Routing::RouteSet::Mapper
   def comatose_root( path, options={} )
     opts = {
       :index      => '',
-      :layout     => 'comatose_content',
+      :layout     => 'comatose_content.html.erb',
       :use_cache  => 'true',
       :cache_path => nil,
       :named_route=> nil
