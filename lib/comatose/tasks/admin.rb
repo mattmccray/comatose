@@ -1,3 +1,6 @@
+require 'rake'
+require 'rake/tasklib'
+
 namespace :comatose do
   #
   # Customization Tasks
@@ -21,14 +24,14 @@ namespace :comatose do
       puts "Copying application views..."
       FileUtils.mkdir(File.join(RAILS_ROOT, 'app', 'views', 'comatose_admin'))
       FileUtils.cp( 
-        Dir[File.join(plugin_dir, 'views', 'comatose_admin', '*.rhtml')], 
+        Dir[File.join(plugin_dir, 'views', 'comatose_admin', '*.html.erb')], 
         File.join(RAILS_ROOT, 'app', 'views', 'comatose_admin'),
         :verbose => true
       )
       puts "Copying application layout..."
       FileUtils.cp( 
-        File.join(plugin_dir, 'views', 'layouts', 'comatose_admin_customize.rhtml'), 
-        File.join(RAILS_ROOT, 'app', 'views', 'layouts', 'comatose_admin.rhtml'),
+        File.join(plugin_dir, 'views', 'layouts', 'comatose_admin_customize.html.erb'), 
+        File.join(RAILS_ROOT, 'app', 'views', 'layouts', 'comatose_admin.html.erb'),
         :verbose => true
       )
       puts "Finished."
@@ -50,7 +53,7 @@ namespace :comatose do
         File.join(RAILS_ROOT, 'app', 'views', 'comatose_admin')
       )
       FileUtils.rm(
-        File.join(RAILS_ROOT, 'app', 'views', 'layouts', 'comatose_admin.rhtml')
+        File.join(RAILS_ROOT, 'app', 'views', 'layouts', 'comatose_admin.html.erb')
       )
     end
   end

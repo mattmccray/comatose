@@ -15,6 +15,9 @@ lib/comatose/comatose_drop.rb
 lib/comatose/configuration.rb
 lib/comatose/page_wrapper.rb
 lib/comatose/processing_context.rb
+lib/comatose/tasks/admin.rb
+lib/comatose/tasks/data.rb
+lib/comatose/tasks/setup.rb
 lib/comatose/version.rb
 lib/comatose.rb
 lib/comatose_admin_controller.rb
@@ -41,7 +44,6 @@ lib/redcloth.rb
 lib/support/class_options.rb
 lib/support/inline_rendering.rb
 lib/support/route_mapper.rb
-lib/support/routes.rb
 lib/text_filters/markdown.rb
 lib/text_filters/markdown_smartypants.rb
 lib/text_filters/none.rb
@@ -54,7 +56,7 @@ MANIFEST
 rails/init.rb
 Rakefile
 README.rdoc
-resources/layouts/comatose_admin_template.rhtml
+resources/layouts/comatose_admin_template.html.erb
 resources/public/images/collapsed.gif
 resources/public/images/expanded.gif
 resources/public/images/no-children.gif
@@ -64,9 +66,7 @@ resources/public/images/title-hover-bg.gif
 resources/public/javascripts/comatose_admin.js
 resources/public/stylesheets/comatose_admin.css
 SPECS
-tasks/admin.rake
-tasks/data.rake
-tasks/setup.rake
+tasks/comatose.rake
 test/behaviors.rb
 test/fixtures/comatose_pages.yml
 test/functional/comatose_admin_controller_test.rb

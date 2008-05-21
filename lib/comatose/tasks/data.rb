@@ -1,3 +1,6 @@
+require 'rake'
+require 'rake/tasklib'
+
 namespace :comatose do
   #
   # Data Migration Tasks

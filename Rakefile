@@ -88,13 +88,13 @@ task :build do
   style_path = File.join('resources', 'public', 'stylesheets', 'comatose_admin.css')
   style_contents = ''
   # Layout Template
-  tmpl_path = File.join('resources', 'layouts', 'comatose_admin_template.rhtml')
+  tmpl_path = File.join('resources', 'layouts', 'comatose_admin_template.html.erb')
   tmpl_contents = ''
   # Layout Target
-  layout_path = File.join('views', 'layouts', 'comatose_admin.rhtml')
+  layout_path = File.join('views', 'layouts', 'comatose_admin.html.erb')
   layout_contents = ''
   # Customizable Target
-  customizable_path = File.join('views', 'layouts', 'comatose_admin_customize.rhtml')
+  customizable_path = File.join('views', 'layouts', 'comatose_admin_customize.html.erb')
   
   # Read the file contents...
   File.open(script_path, 'r') {|f| script_contents = "<script>\n#{f.read}\n</script>" }

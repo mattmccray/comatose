@@ -1,3 +1,6 @@
+require 'rake'
+require 'rake/tasklib'
+
 namespace :comatose do
   #
   # Setup Task...
@@ -43,7 +46,7 @@ namespace :comatose do
       move 'public/javscripts/comatose.js public/javscripts/comatose_admin.js' 
       move 'public/stylesheets/comatose.css public/stylesheets/comatose_admin.css' 
       move 'app/views/comatose app/views/comatose_admin' 
-      delete 'app/views/layouts/comatose_content.rhtml' 
+      delete 'app/views/layouts/comatose_content.html.erb' 
     end
   end
 end
