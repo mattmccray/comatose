@@ -1,3 +1,5 @@
+# Init for gem version of Comatose
+
 require 'support/class_options'
 require 'acts_as_versioned'
 require 'redcloth' unless defined?(RedCloth)

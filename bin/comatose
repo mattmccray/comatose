@@ -1,0 +1,20 @@
+#!/usr/bin/env ruby
+# Command line
+
+puts "It's still early, so this doesn't really do anything -- yet."
+puts
+puts "Soon, you will be able to initialize comatose support in your app by running:"
+puts
+puts "  $> comatose --rails ."
+puts
+puts "Or, upgrade you're current install:"
+puts
+puts "  $> comatose --update ."
+puts
+puts "Or, freeze as plugin:"
+puts
+puts "  $> comatose --freeze ."
+puts
+puts "And maybe other wacky things too... Not sure yet. :-)"
+puts
+

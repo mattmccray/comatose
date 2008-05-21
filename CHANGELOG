@@ -1,9 +1,10 @@
-- version: 2.0 (alpha)
+- version: 2.0 (uber alpha)
     - Removed controllers, models, and helpers from Comatose module. It was causing odd issues
     - Initial support for Rails 2.1(ish)
     - Fixed up slug generation to remove leading and trailing whitespace
     - Moved to github
     - Changed all the .rhtml files to .html.erb
+    - Adding support for use as a gem plugin
     
 - version: 0.8.1
   changes:

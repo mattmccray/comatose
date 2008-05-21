@@ -27,6 +27,56 @@ Rake::RDocTask.new(:rdoc) do |rdoc|
   rdoc.rdoc_files.include('lib/**/*.rb')
 end
 
+def manifest_files
+  Dir.glob("**/*").delete_if do |item|
+    item.include?(".git") or item =~ /gem(?:spec)?$/ or File.directory?(item)
+  end
+end
+
+desc "Generate a MANIFEST files"
+task :manifest do
+  File.open('MANIFEST', 'w') do |f|
+    f.write manifest_files.join("\n")
+  end
+  puts 'Created MANIFEST'
+end
+
+
+desc "Update GEMSPEC"
+task :gemspec=>:manifest do
+  $: << 'lib'
+  require 'comatose/version'
+  
+  gemspec_src =<<-EOGS
+# Generated on #{ Time.now.to_s }
+Gem::Specification.new do |s|
+  s.name = "comatose"
+  s.version = "#{ Comatose::VERSION }"
+  s.date = "#{ Time.now.strftime('%Y-%m-%d') }" # 2008-05-20
+  s.summary = "Micro CMS designed for being embedded into existing Rails applications"
+  s.email = "matt@elucidata.net"
+  s.rubyforge_project = 'comatose'
+  s.homepage = "http://comatose.rubyforge.org"
+  s.description = "Comatose is a micro CMS designed for being embedded into existing Rails applications."
+  s.has_rdoc = true
+  s.authors = ["M@ McCray"]
+  s.bindir = 'bin'
+  s.executables = ['comatose']
+  s.files = ["#{ manifest_files.join('", "') }"]
+  s.test_files = ["#{ manifest_files.delete_if{ |f| !f.include?('test/') }.join('", "') }"]
+  s.rdoc_options = ["--main", "README.rdoc"]
+  s.extra_rdoc_files = %w(README.rdoc CHANGELOG SPECS LICENSE)
+  #s.add_dependency("mime-types", ["> 0.0.0"])
+end
+EOGS
+  
+  File.open("comatose.gemspec", 'w') do |f|
+    f.write gemspec_src
+  end
+  
+  puts "Update GEMSPEC"
+end
+
 desc "Builds the admin costumizable layout, the embedded layout have the JS and CSS inlined"
 task :build do
   require 'erb'
@@ -69,81 +119,4 @@ task :build do
   
   # That's it -- we're done.
   puts "Finished."
-end
-
-namespace :scm do
-
-  desc "Adds missing files into SCM, interactively"
-  task :add do
-    scm_processor(:add)
-  end
-
-  desc "Reverts and Removes deleted files from SCM, interactively"
-  task :remove do
-    scm_processor(:remove)
-  end
-
-  desc "Looks for added files, then removed ones"
-  task :add_remove do
-    scm_processor(:add,    "No files to add")
-    scm_processor(:remove, "No files to remove")    
-  end
-
-end
-
-SVN = ENV['SVN'] || 'svk'
-
-def propset(prop, value, *targets)
-  sh %(#{SVN} propset #{prop} "#{value}" #{targets.join(' ')})
-end
-
-def add(dir)
-  sh %(#{SVN} add #{dir})
-end
-
-def remove(file)
-  sh %(#{SVN} revert #{file})
-  sh %(#{SVN} delete #{file})
-end
-
-def stat
-  `#{SVN} stat`
-end
-
-def project_name
-  File.basename(File.expand_path(RAILS_ROOT))
-end
-
-def scm_processor(mode, no_targets_msg="Nothing to do")
-  raise "Requires mode :add or :remove" if mode.nil? or ![:add,:remove].include?(mode)
-  re = (mode == :add) ? [ /^\?/, /^\?\s*/ ] : [ /^\!/, /^\!\s*/ ]
-  files = stat.select{ |e| re[0] =~ e}.collect{|e| e.sub(re[1], '').chomp }
-  puts
-  if files.length == 0
-    puts no_targets_msg
-  else
-    files.map {|f| puts "  #{f}"}
-    print "\n#{mode.to_s.capitalize} all of these? (y/n/i) : "
-    affected_files = 0
-    if STDIN.gets =~ /^(y|i)/i
-      case $1.downcase
-        when 'y'
-          (mode == :add) ? add(files.join(' ')) : files.map { |f| remove(f) }
-          affected_files = files.length
-        when 'i'
-          puts "\n[Interactive Mode]\n"
-          files.each do |file|
-            print "#{mode.to_s.capitalize} '#{file}'? (y/n) : "
-            if /^y/i =~ STDIN.gets
-              (mode == :add) ? add(file) : remove(file)
-              affected_files += 1
-            else
-              puts "Ignored"
-            end
-          end
-      end
-    end
-    puts "\n#{affected_files} file(s) affected, #{files.length - affected_files} ignored"
-  end
-  puts
 end
