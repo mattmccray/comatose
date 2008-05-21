@@ -1,6 +1,6 @@
 module Comatose
 
-  class ComatoseDrop < Liquid::Drop
+  class ComatoseDrop < ::Liquid::Drop
 
     private :initialize
     

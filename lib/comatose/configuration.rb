@@ -55,9 +55,9 @@ module Comatose
     
     def validate!
       # Rips through the config and validates it's, er, valid
-      raise ConfigurationError.new "admin_get_author must be a Proc or Symbol" unless @admin_get_author.is_a? Proc or @admin_get_author.is_a? Symbol
-      raise ConfigurationError.new "admin_authorization must be a Proc or Symbol" unless @admin_authorization.is_a? Proc or @admin_authorization.is_a? Symbol
-      raise ConfigurationError.new "authorization must be a Proc or Symbol" unless @authorization.is_a? Proc or @authorization.is_a? Symbol
+      raise ConfigurationError.new( "admin_get_author must be a Proc or Symbol" ) unless @admin_get_author.is_a? Proc or @admin_get_author.is_a? Symbol
+      raise ConfigurationError.new( "admin_authorization must be a Proc or Symbol" ) unless @admin_authorization.is_a? Proc or @admin_authorization.is_a? Symbol
+      raise ConfigurationError.new( "authorization must be a Proc or Symbol" ) unless @authorization.is_a? Proc or @authorization.is_a? Symbol
       true
     end
     

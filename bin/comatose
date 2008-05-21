@@ -1,20 +1,109 @@
 #!/usr/bin/env ruby
-# Command line
+require 'rubygems'
+require 'optparse'
 
-puts "It's still early, so this doesn't really do anything -- yet."
-puts
-puts "Soon, you will be able to initialize comatose support in your app by running:"
-puts
-puts "  $> comatose --rails ."
-puts
-puts "Or, upgrade you're current install:"
-puts
-puts "  $> comatose --update ."
-puts
-puts "Or, freeze as plugin:"
-puts
-puts "  $> comatose --freeze ."
-puts
-puts "And maybe other wacky things too... Not sure yet. :-)"
-puts
+args = ARGV
+options = {
+  :action => :gem
+}
+
+begin
+  OptionParser.new do |opts|
+    opts.banner = "Usage: comatose [options] RAILS_ROOT"
+    
+    opts.on("-g", "--gem", "Initialize to run from gem (DEFAULT)") do |s| 
+      options[:action] = :gem
+      puts "GEM"
+    end
+
+    opts.on("-p", "--plugin", "Install as plugin") do |s| 
+      options[:action] = :plugin
+      puts "PLUGIN"
+    end
+
+    opts.on("-u", "--update", "Update current installation (CURRENTLY UNIMPLEMENTED)") do |s| 
+      options[:action] = :update
+      puts "UPDATE"
+    end
+
+    opts.separator ""
+            opts.separator "Common options:"
+
+    # No argument, shows at tail.  This will print an options summary.
+    # Try it and see!
+    opts.on_tail("-h", "--help", "Show this message") do
+      puts opts
+      exit
+    end
+
+    # Another typical switch to print the version.
+    opts.on_tail("--version", "Show version") do
+      require 'comatose/version'
+      puts Comatose::VERSION_STRING
+      exit
+    end
+
+  end.parse!(args)
+rescue OptionParser::ParseError => e
+  puts e
+end
+
+if args.length == 0
+  puts "No action taken."
+  exit 
+end
+
+RAILS_ROOT = File.expand_path( args.last )
+
+class String
+  def /(string)
+    File.join(self, string)
+  end
+end
+
+unless File.directory?(RAILS_ROOT) and File.exists?( RAILS_ROOT / 'config'/ 'boot.rb' )
+  puts "Not a valid rails application path."
+  exit
+end
+
+comatose_initializer_path = RAILS_ROOT / 'config' / 'initializers' / 'comatose.rb'
+
+unless File.exists?( comatose_initializer_path )
+  File.open(comatose_initializer_path, 'w') do |f|
+    f.write <<-EOT
+    require 'comatose'
+    
+    # 1.) You should add the following snippet to your environment.rb too, probably...
+    #
+    #        gem 'comatose' 
+    #
+    # 2.) Following is an example configuration block for Comatose:    
+    #
+    Comatose.configure do |config|
+      # Includes AuthenticationSystem in the ComatoseController
+      #config.includes << :authenticated_system
+
+      # admin 
+      #config.admin_title = "My Content"
+      #config.admin_sub_title = "Content for the rest of us..."
+
+      # Includes AuthenticationSystem in the ComatoseAdminController
+      #config.admin_includes << :authenticated_system
+
+      # Calls :login_required as a before_filter
+      #config.admin_authorization = :login_required
+      # Returns the author name (login, in this case) for the current user
+      #config.admin_get_author do
+      #  current_user.login
+      #end
+      
+      # See the getting started guide at http://comatose.rubyforge.org for more...
+    end
+EOT
+  end
+else
+  puts "Comatose initializer already exists (at #{comatose_initializer_path})"
+end
+
+puts "Done."
 
