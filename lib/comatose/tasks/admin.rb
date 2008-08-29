@@ -10,7 +10,7 @@ namespace :comatose do
     desc "Create Comatose views, layouts, and public files..."
     task :customize do
       puts "Copying public files..."
-      plugin_dir = File.join(File.dirname(__FILE__), '..')
+      plugin_dir = File.join(File.dirname(__FILE__), '../../..')
       FileUtils.cp( 
         Dir[File.join(plugin_dir, 'resources', 'public', 'stylesheets', '*.css')], 
         File.join(RAILS_ROOT, 'public', 'stylesheets'),
@@ -22,7 +22,7 @@ namespace :comatose do
         :verbose => true
       )
       puts "Copying application views..."
-      FileUtils.mkdir(File.join(RAILS_ROOT, 'app', 'views', 'comatose_admin'))
+      FileUtils.mkdir_p(File.join(RAILS_ROOT, 'app', 'views', 'comatose_admin'))
       FileUtils.cp( 
         Dir[File.join(plugin_dir, 'views', 'comatose_admin', '*.html.erb')], 
         File.join(RAILS_ROOT, 'app', 'views', 'comatose_admin'),

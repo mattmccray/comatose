@@ -1,5 +1,6 @@
 # The controller for serving cms content...
 class ComatoseAdminController < ActionController::Base
+  unloadable
     
   define_option :original_template_root, nil
   define_option :plugin_layout_path, File.join( '..', '..', '..', 'vendor', 'plugins', 'comatose', 'views', 'layouts' )
