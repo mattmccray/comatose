@@ -1,3 +1,8 @@
+- version: 2.0.1 (alpha)
+    - Merged changes from andreas (http://github.com/andreas)...
+    - andreas: Fixed comatose:admin:customize raketask (seems plugin_path was wrong, and made use of mkdir_p to avoid "File exists"-errors.) 
+    - andreas: Added "unloadable" to ComatoseAdminController (problems with ActsAsAuthenticated-integration similar to http://tinyurl.com/6caz5r)
+
 - version: 2.0 (uber alpha)
     - Removed controllers, models, and helpers from Comatose module. It was causing odd issues
     - Initial support for Rails 2.1(ish)
