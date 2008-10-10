@@ -1,7 +1,7 @@
 # Generated on Tue May 20 20:13:12 -0500 2008
 Gem::Specification.new do |s|
   s.name = "comatose"
-  s.version = "2.0.1"
+  s.version = "2.0.2"
   s.date = "2008-09-15" # 2008-05-20
   s.summary = "Micro CMS designed for being embedded into existing Rails applications"
   s.email = "matt@elucidata.net"
