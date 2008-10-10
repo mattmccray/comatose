@@ -1,5 +1,6 @@
 # The controller for serving cms content...
 class ComatoseController < ActionController::Base 
+  unloadable
   
   before_filter :handle_authorization, :set_content_type
   after_filter :cache_cms_page
