@@ -140,6 +140,16 @@ class ComatoseAdminController < ActionController::Base
     redirect_to :controller=>self.controller_name, :action=>'index'
   end
 
+  def export
+    send_data(page_to_hash(ComatosePage.root).to_yaml, :disposition => 'inline', :type => 'text/yaml', :filename => "comatose-pages.yml")
+  end
+
+  def import
+    data = YAML::load(params[:import_file])
+    hash_to_page_tree(data, ComatosePage.root)
+    flash[:notice] = "Pages Imported Successfully"
+    redirect_to :controller=>self.controller_name, :action=>'index'
+  end
 
 protected
 
@@ -345,5 +355,32 @@ protected
     end
   end
 
+  private
+  
+  def page_to_hash(page)
+    data = page.attributes.clone
+    # Pull out the specific, or unnecessary fields
+    %w(id parent_id updated_on author position version created_on full_path).each {|key| data.delete(key)}
+    if !page.children.empty?
+      data['children'] = []
+      page.children.each do |child|
+        data['children'] << page_to_hash(child)
+      end
+    end
+    data
+  end
 
+  def hash_to_page_tree(hsh, page)
+    child_ary = hsh.delete 'children'
+    page.update_attributes(hsh)
+    page.save
+    child_ary.each do |child_hsh|
+      if child_pg = page.children.find_by_slug( child_hsh['slug'] )
+        hash_to_page_tree( child_hsh, child_pg )
+      else
+        hash_to_page_tree( child_hsh, page.children.create )      
+      end
+    end if child_ary
+  end
+  
 end
