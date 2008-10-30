@@ -1,8 +1,10 @@
-- version: 2.0.3 (alpha)
+- version: 2.0.3 (beta)
+    - Moving from alpha to beta!
     - staugaard: Added import and export of pages in admin controller
 
 - version: 2.0.2 (alpha)
     - staugaard: Added "unloadable" to ComatoseController (problems with ActsAsAuthenticated-integration similar to http://tinyurl.com/6caz5r)
+    - jcnetdev: Tweaking gemspec
 
 - version: 2.0.1 (alpha)
     - Merged changes from andreas (http://github.com/andreas)...

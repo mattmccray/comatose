@@ -3,6 +3,8 @@
  Welcome to Comatose!
 ======================
 
+Be sure and install the acts_as_tree and acts_as_list plugins!
+
 From here you'll want to run:
 
   $ ./script/generate comatose_migration

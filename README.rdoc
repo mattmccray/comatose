@@ -1,6 +1,6 @@
 = Comatose
 
-Version:: 2.0 (uber-alpha)
+Version:: 2.0.3 (beta)
 Author::  M@ McCray
 Website:: comatose.rubyforge.org
 Email::   matt at elucidata dot net
@@ -144,5 +144,5 @@ project site: http://comatose.rubyforge.org/getting-started-guide
 
 If you like it, hate it, or have some ideas for new features, let me know!
 
-darthapo at gmail dot com
+matt at elucidata dot net
 
