@@ -55,7 +55,7 @@ LICENSE
 MANIFEST
 rails/init.rb
 Rakefile
-README.rdoc
+README.markdown
 resources/layouts/comatose_admin_template.html.erb
 resources/public/images/collapsed.gif
 resources/public/images/expanded.gif

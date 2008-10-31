@@ -141,13 +141,22 @@ class ComatoseAdminController < ActionController::Base
   end
 
   def export
-    send_data(page_to_hash(ComatosePage.root).to_yaml, :disposition => 'inline', :type => 'text/yaml', :filename => "comatose-pages.yml")
+    if Comatose.config.allow_import_export
+      send_data(page_to_hash(ComatosePage.root).to_yaml, :disposition => 'attachment', :type => 'text/yaml', :filename => "comatose-pages.yml")
+    else
+      flash[:notice] = "Export is not allowed"
+      redirect_to :controller=>self.controller_name, :action=>'index'
+    end
   end
 
   def import
-    data = YAML::load(params[:import_file])
-    hash_to_page_tree(data, ComatosePage.root)
-    flash[:notice] = "Pages Imported Successfully"
+    if Comatose.config.allow_import_export
+      data = YAML::load(params[:import_file])
+      hash_to_page_tree(data, ComatosePage.root)
+      flash[:notice] = "Pages Imported Successfully"
+    else
+      flash[:notice] = "Import isn't allowed"
+    end
     redirect_to :controller=>self.controller_name, :action=>'index'
   end
 

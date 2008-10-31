@@ -1,3 +1,9 @@
+- version: 2.0.5 (beta)
+    - Added configuration option for importing/exporting pages from admin: `config.allow_import_export = true|false`, `true` is the default at the moment
+    - Reworked the UI for import/export a little bit
+    - Added LINK option to `test_harness` rake task to symlink the comatose plugin directory instead of copying it
+    - Updated manifest and gemspec
+
 - version: 2.0.4 (beta)
     - Added a rake task to generate a test_harness (for use in development). From the comatose directory, run: `rake test_harness TARGET=../comatose_test_harness`. This will create an empty rails app, copy this working folder over to vendor/plugins/comatose, install acts_as_list and acts_as_tree, and run any setup needed, like script/generate comatose_migration and rake db:migrate.
     - Bugfix in tasks/comatose.rake

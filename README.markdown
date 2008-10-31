@@ -1,6 +1,6 @@
 # Comatose
 
-* Version: 2.0.4 (beta)
+* Version: 2.0.5 (beta)
 * Author:  M@ McCray
 * Website: comatose.rubyforge.org
 * Email: matt at elucidata dot net

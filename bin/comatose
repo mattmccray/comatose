@@ -97,6 +97,9 @@ Comatose.configure do |config|
   #  current_user.login
   #end
   
+  # Allows users to import and export pages (in YAML format)
+  #config.allow_import_export = true
+  
   # See the getting started guide at http://comatose.rubyforge.org for more...
 end
 EOT

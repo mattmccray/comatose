@@ -36,6 +36,7 @@ module Comatose
     attr_accessor_with_default :hidden_meta_fields,   []
     attr_accessor_with_default :helpers,              []
     attr_accessor_with_default :includes,             []
+    attr_accessor_with_default :allow_import_export,  true
 
     # 'Blockable' setters
     blockable_attr_accessor    :authorization

@@ -1,12 +1,16 @@
 <div class="action">
-  <% form_tag(url_for(:action => 'import'), :multipart => true, :style => 'display: none;', :id => 'import_form') do %>
-    <%= file_field_tag 'import_file' %>
-    <%= submit_tag 'Import' %>
-  <% end %>
-  
-  <%= link_to 'Import', '#', :id => 'import_link2', :onclick => "$('import_form').setStyle({display: 'inline'}); this.hide();" %>
-  <%= link_to 'Export', :controller=>controller.controller_name, :action=>'export' %>
   <%= link_to 'Clear Page Cache', :controller=>controller.controller_name, :action=>'expire_page_cache' %>
+<% if Comatose.config.allow_import_export %>
+  <%= link_to 'Import', '#', :id => 'import_link2', :onclick => "$('import_form').setStyle({display: 'inline'}); return false;" %>
+  <%= link_to 'Export', :controller=>controller.controller_name, :action=>'export' %>
+  <div id="import_form" style="display: none;">
+  <% form_tag(url_for(:action => 'import'), :multipart => true) do %>
+    <%= file_field_tag 'import_file' %>
+    <%= submit_tag 'Upload and Import' %>
+    <a href="#" onclick="$('import_form').hide(); return false;">Cancel</a>
+  <% end %>
+  </div>
+<% end %>
 </div>
   
 <h1>

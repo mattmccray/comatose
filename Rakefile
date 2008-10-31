@@ -125,6 +125,7 @@ end
 desc "Creates an empty rails application for use as a test harness"
 task :test_harness do
   target = ENV['TARGET']
+  sym_link = (ENV['LINK'].to_s == 'true')
   if target.nil?
     puts "You must specify a TARGET for the test harness"
     exit(1)
@@ -139,7 +140,11 @@ task :test_harness do
 
   puts "Creating test harness at #{ target }"
   run_sh "rails -d sqlite3 #{target}"
-  run_sh "cp -r #{ File.dirname(__FILE__) }/ #{ comatose_plugin_path }"
+  if sym_link
+    run_sh "ln -s #{ File.dirname(__FILE__) } #{ comatose_plugin_path }"
+  else
+    run_sh "cp -r #{ File.dirname(__FILE__) }/ #{ comatose_plugin_path }"
+  end
   run_sh "ruby #{ comatose_plugin_path / 'install.rb' }"
   run_sh "ruby #{ target / 'script' / 'generate' } comatose_migration"
   run_sh "ruby #{ comatose_plugin_path / 'bin' / 'comatose' } --plugin #{ target }"

@@ -1,8 +1,8 @@
 # Generated on Tue May 20 20:13:12 -0500 2008
 Gem::Specification.new do |s|
   s.name = "comatose"
-  s.version = "2.0.4"
-  s.date = "2008-10-10" # 2008-05-20
+  s.version = "2.0.5"
+  s.date = "2008-10-31" # 2008-05-20
   s.summary = "Micro CMS designed for being embedded into existing Rails applications"
   s.email = "matt@elucidata.net"
   s.rubyforge_project = 'comatose'
@@ -17,7 +17,7 @@ Gem::Specification.new do |s|
              "INSTALL",
              "LICENSE",
              "MANIFEST",
-             "README.rdoc",
+             "README.markdown",
              "Rakefile",
              "SPECS",
              "about.yml",
@@ -107,7 +107,7 @@ Gem::Specification.new do |s|
                   "test/unit/processing_context_test.rb",
                   "test/unit/text_filters_test.rb"]
   
-  s.rdoc_options = ["--main", "README.rdoc"]
-  s.extra_rdoc_files = %w(README.rdoc CHANGELOG SPECS LICENSE)
+  s.rdoc_options = ["--main", "README.markdown"]
+  s.extra_rdoc_files = %w(README.markdown CHANGELOG SPECS LICENSE)
   #s.add_dependency("mime-types", ["> 0.0.0"])
 end
