@@ -1,3 +1,15 @@
+class Rails::Generator::Commands::Create
+  def new_route(name, options='')
+    sentinel = 'ActionController::Routing::Routes.draw do |map|'
+    logger.route "map.#{name} #{options}"
+    unless options[:pretend]
+      gsub_file 'config/routes.rb', /(#{Regexp.escape(sentinel)})/mi do |match|
+        "#{match}\n  map.#{name} #{options}\n"
+      end
+    end
+  end
+end
+
 class ComatoseMigrationGenerator < Rails::Generator::Base
 
 
@@ -38,6 +50,8 @@ class ComatoseMigrationGenerator < Rails::Generator::Base
       case @mode
       when :new
         m.migration_template 'migration.rb', 'db/migrate', :migration_file_name=>'add_comatose_support', :assigns=>{:class_name=>'AddComatoseSupport'}
+        m.new_route 'comatose_root', "''"
+        m.new_route 'comatose_admin'
         
       when :upgrade
         from = @upgrade_from
@@ -57,3 +71,4 @@ class ComatoseMigrationGenerator < Rails::Generator::Base
     end
   end
 end
+

@@ -13,21 +13,21 @@ begin
     
     opts.on("-g", "--gem", "Initialize to run from gem (DEFAULT)") do |s| 
       options[:action] = :gem
-      puts "GEM"
+      puts "Configuring to run from GEM..."
     end
 
     opts.on("-p", "--plugin", "Install as plugin") do |s| 
       options[:action] = :plugin
-      puts "PLUGIN"
+      puts "Configuring to run from PLUGIN..."
     end
 
-    opts.on("-u", "--update", "Update current installation (CURRENTLY UNIMPLEMENTED)") do |s| 
-      options[:action] = :update
-      puts "UPDATE"
-    end
+    # opts.on("-u", "--update", "Update current installation (CURRENTLY UNIMPLEMENTED)") do |s| 
+    #   options[:action] = :update
+    #   puts "UPDATE"
+    # end
 
     opts.separator ""
-            opts.separator "Common options:"
+    opts.separator "Common options:"
 
     # No argument, shows at tail.  This will print an options summary.
     # Try it and see!
@@ -71,34 +71,34 @@ comatose_initializer_path = RAILS_ROOT / 'config' / 'initializers' / 'comatose.r
 unless File.exists?( comatose_initializer_path )
   File.open(comatose_initializer_path, 'w') do |f|
     f.write <<-EOT
-    require 'comatose'
-    
-    # 1.) You should add the following snippet to your environment.rb too, probably...
-    #
-    #        gem 'comatose' 
-    #
-    # 2.) Following is an example configuration block for Comatose:    
-    #
-    Comatose.configure do |config|
-      # Includes AuthenticationSystem in the ComatoseController
-      #config.includes << :authenticated_system
+require 'comatose'
 
-      # admin 
-      #config.admin_title = "My Content"
-      #config.admin_sub_title = "Content for the rest of us..."
+# 1.) You should add the following snippet to your environment.rb too, probably...
+#
+#        gem 'comatose' 
+#
+# 2.) Following is an example configuration block for Comatose:    
+#
+Comatose.configure do |config|
+  # Includes AuthenticationSystem in the ComatoseController
+  #config.includes << :authenticated_system
 
-      # Includes AuthenticationSystem in the ComatoseAdminController
-      #config.admin_includes << :authenticated_system
+  # admin 
+  #config.admin_title = "My Content"
+  #config.admin_sub_title = "Content for the rest of us..."
 
-      # Calls :login_required as a before_filter
-      #config.admin_authorization = :login_required
-      # Returns the author name (login, in this case) for the current user
-      #config.admin_get_author do
-      #  current_user.login
-      #end
-      
-      # See the getting started guide at http://comatose.rubyforge.org for more...
-    end
+  # Includes AuthenticationSystem in the ComatoseAdminController
+  #config.admin_includes << :authenticated_system
+
+  # Calls :login_required as a before_filter
+  #config.admin_authorization = :login_required
+  # Returns the author name (login, in this case) for the current user
+  #config.admin_get_author do
+  #  current_user.login
+  #end
+  
+  # See the getting started guide at http://comatose.rubyforge.org for more...
+end
 EOT
   end
 else

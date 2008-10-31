@@ -1,5 +1,5 @@
 begin 
-  require 'comatose'
+  require 'comatose/version'
 rescue LoadError
   $: << File.join(File.dirname(__FILE__), '..', 'lib')
 end

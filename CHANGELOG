@@ -1,3 +1,8 @@
+- version: 2.0.4 (beta)
+    - Added a rake task to generate a test_harness (for use in development). From the comatose directory, run: `rake test_harness TARGET=../comatose_test_harness`. This will create an empty rails app, copy this working folder over to vendor/plugins/comatose, install acts_as_list and acts_as_tree, and run any setup needed, like script/generate comatose_migration and rake db:migrate.
+    - Bugfix in tasks/comatose.rake
+    - Comatose migration generator now adds the default comatose routes (`map.comatose_admin` and `map.comatose_root ''`) to the top of the routes.rb file. POSSIBLE GOTCHA: `map.comatose_root` should be moved to the bottom of the routes file!
+
 - version: 2.0.3 (beta)
     - Moving from alpha to beta!
     - staugaard: Added import and export of pages in admin controller

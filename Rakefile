@@ -77,7 +77,7 @@ EOGS
   puts "Update GEMSPEC"
 end
 
-desc "Builds the admin costumizable layout, the embedded layout have the JS and CSS inlined"
+desc "Builds the admin customizable layout, the embedded layout have the JS and CSS inlined"
 task :build do
   require 'erb'
 
@@ -119,4 +119,53 @@ task :build do
   
   # That's it -- we're done.
   puts "Finished."
+end
+
+
+desc "Creates an empty rails application for use as a test harness"
+task :test_harness do
+  target = ENV['TARGET']
+  if target.nil?
+    puts "You must specify a TARGET for the test harness"
+    exit(1)
+  else
+    target = File.expand_path target
+    if target == File.expand_path(File.dirname(__FILE__))
+      puts "You must specify a folder other than this one."
+      exit(1)
+    end
+  end
+  comatose_plugin_path = target / 'vendor' / 'plugins' / 'comatose'
+
+  puts "Creating test harness at #{ target }"
+  run_sh "rails -d sqlite3 #{target}"
+  run_sh "cp -r #{ File.dirname(__FILE__) }/ #{ comatose_plugin_path }"
+  run_sh "ruby #{ comatose_plugin_path / 'install.rb' }"
+  run_sh "ruby #{ target / 'script' / 'generate' } comatose_migration"
+  run_sh "ruby #{ comatose_plugin_path / 'bin' / 'comatose' } --plugin #{ target }"
+  run_sh "cd #{ target } && rake db:migrate"
+
+  run_sh "cp #{ target / 'db' / 'development.sqlite3' } #{target / 'db' / 'test.sqlite3'}"
+  run_sh "rm #{ target / 'public' / 'index.html' }"
+  run_sh "cp #{ comatose_plugin_path / 'views' / 'layouts' / 'comatose_content.html.erb' } #{ target / 'app' / 'views' / 'layouts' / 'comatose_content.html.erb' }"
+  
+  # Remove me soon!
+  run_sh "cd #{ target } && ruby #{ target / 'script' / 'plugin' } install acts_as_tree"
+  run_sh "cd #{ target } && ruby #{ target / 'script' / 'plugin' } install acts_as_list"
+
+  puts "Done."
+end
+
+class String
+  def /(str)
+    File.join(self, str)
+  end
+end
+
+def run_sh(command)
+  puts "-------------------------------------------------------------------------------"
+  puts "Running `#{command}`:"
+  sh command
+  puts
+  puts
 end

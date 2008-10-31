@@ -1,3 +1,5 @@
+require 'fileutils'
+
 # Copy the images (*.gif) into RAILS_ROOT/public/images/comatose
 RAILS_ROOT = File.join(File.dirname(__FILE__), '../../../')
 
