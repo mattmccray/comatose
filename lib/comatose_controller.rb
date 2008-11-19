@@ -84,11 +84,7 @@ protected
   # Returns a path to plugin layout, if it's unspecified, otherwise
   # a path to an application layout...
   def get_page_layout
-    if params[:layout] == 'comatose_content'
-      File.join(plugin_layout_path, params[:layout])
-    else
-      params[:layout]
-    end
+    params[:layout]
   end
 
   # An after_filter implementing page caching if it's enabled, globally, 
@@ -112,8 +108,8 @@ protected
     response.headers["Content-Type"] = "text/html; charset=#{Comatose.config.content_type}" unless Comatose.config.content_type.nil? or response.headers['Status'] == '404 Not Found'
   end
 
-  # Path to layouts within the plugin... Assumes the plugin directory name is 'comatose'
-  define_option :plugin_layout_path, File.join( '..', '..', '..', 'vendor', 'plugins', 'comatose', 'views', 'layouts'  )
+  COMATOSE_VIEW_PATH = File.join(RAILS_ROOT, 'vendor', 'plugins', 'comatose', 'views')
+  ActionController::Base.append_view_path(COMATOSE_VIEW_PATH) unless ActionController::Base.view_paths.include?(COMATOSE_VIEW_PATH)
 
   # Include any, well, includes...
   Comatose.config.includes.each do |mod|
