@@ -5,7 +5,7 @@
 {% else %}
   <a class="prev" href="#"></a>
 {% endif %}
-<a class="home" href="{{ posts | uri }}">&#9679;</a>
+<a class="up" href="{{ posts | uri }}">&#9679;</a>
 {% if this.prev %}
   <a class="next" href="{{ this.prev | uri }}">{{ this.prev.title }} &raquo;</a>
 {% endif %}
