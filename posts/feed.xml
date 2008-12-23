@@ -1,0 +1,157 @@
+
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+ 
+ <title>Comatose</title>
+ <link href="http://comatose.rubyforge.org/posts/feed.xml" rel="self" />
+ <link href="http://comatose.rubyforge.org//" />
+ <updated>2008-12-23T15:06:00-06:00</updated>
+ <id>http://comatose.rubyforge.org//</id>
+ <author>
+   <name>M@ McCray</name>
+   <email>darthapo@gmail.com</email>
+ </author>
+ 
+
+ <entry>
+   <title>Comatose v2 Beta</title>
+   <link href="http://comatose.rubyforge.org/posts/comatose-v2-beta/index.html" />
+   <updated>2008-10-30T00:00:00-05:00</updated>
+   <id>http://comatose.rubyforge.org/posts/comatose-v2-beta/index.html</id>
+   <content type="html">
+&lt;p&gt;Wow. It&#8217;s been a really long time since I&#8217;ve updated the dev site, eh? Well, Comatose isn&#8217;t dead. It&#8217;s just been sleeping. Deeply. :-)&lt;/p&gt;
+</content>
+ </entry>
+
+ <entry>
+   <title>Version 0.8.1 Released</title>
+   <link href="http://comatose.rubyforge.org/posts/version-0-8-1-released/index.html" />
+   <updated>2007-06-29T00:00:00-05:00</updated>
+   <id>http://comatose.rubyforge.org/posts/version-0-8-1-released/index.html</id>
+   <content type="html">
+  &lt;p&gt;I know it&#8217;s been a long time coming, but here it is: &lt;a href="http://mattmccray.com/svn/rails/plugins/comatose"&gt;Comatose 0.8.1&lt;/a&gt;!&lt;/p&gt;
+</content>
+ </entry>
+
+ <entry>
+   <title>Comatose 0.8</title>
+   <link href="http://comatose.rubyforge.org/posts/comatose-0-8/index.html" />
+   <updated>2007-05-07T00:00:00-05:00</updated>
+   <id>http://comatose.rubyforge.org/posts/comatose-0-8/index.html</id>
+   <content type="html">
+&lt;p&gt;Comatose 0.8 has been &lt;a href='http://mattmccray.com/archive/2007/01/30/Comatose_08_Released'&gt;out in the wild&lt;/a&gt; for a few months now. It&#8217;s using a new approach of including ruby modules to extend the controller&#8217;s functionality.&lt;/p&gt;
+</content>
+ </entry>
+
+ <entry>
+   <title>DevSite Updated</title>
+   <link href="http://comatose.rubyforge.org/posts/devsite-updated/index.html" />
+   <updated>2007-05-06T00:00:00-05:00</updated>
+   <id>http://comatose.rubyforge.org/posts/devsite-updated/index.html</id>
+   <content type="html">
+&lt;p&gt;There have been a noted lack of updates around here lately&#8230; Sorry about that. It&#8217;s partially because I&#8217;ve been pretty busy, and partially because the tool I was using to maintain this site was rather cumbersome.&lt;/p&gt;
+</content>
+ </entry>
+
+ <entry>
+   <title>Another Day, Another Update: 0.7.1</title>
+   <link href="http://comatose.rubyforge.org/posts/another-day-another-update-0-7-1/index.html" />
+   <updated>2006-09-21T00:00:00-05:00</updated>
+   <id>http://comatose.rubyforge.org/posts/another-day-another-update-0-7-1/index.html</id>
+   <content type="html">
+&lt;p&gt;As most of you will know, Comatose has been having a few problems co-existing with some kinds of plugins lately. The problems seem to be caused, at least in part, because the comatose controllers extend &lt;code&gt;ApplicationController&lt;/code&gt; and therefore &lt;code&gt;require&lt;/code&gt; the &lt;code&gt;application.rb&lt;/code&gt; before the rest of the plugins load.&lt;/p&gt;
+</content>
+ </entry>
+
+ <entry>
+   <title>Comatose 0.7 Released!</title>
+   <link href="http://comatose.rubyforge.org/posts/comatose-0-7-released/index.html" />
+   <updated>2006-09-20T00:00:00-05:00</updated>
+   <id>http://comatose.rubyforge.org/posts/comatose-0-7-released/index.html</id>
+   <content type="html">
+&lt;p&gt;Comatose version 0.7 is ready to go!&lt;/p&gt;
+</content>
+ </entry>
+
+ <entry>
+   <title>Using Comatose With rForum</title>
+   <link href="http://comatose.rubyforge.org/posts/using-comatose-with-rforum/index.html" />
+   <updated>2006-08-31T10:00:00-05:00</updated>
+   <id>http://comatose.rubyforge.org/posts/using-comatose-with-rforum/index.html</id>
+   <content type="html">
+  &lt;p&gt;Several people have been reporting issues with &lt;a href="http://rubyforge.org/projects/rforum"&gt;rForum&lt;/a&gt;. The error messages can be a little deceiving, leading you to believe the error is in &lt;code&gt;navbar.rb&lt;/code&gt; or a @Localization@ class.&lt;/p&gt;
+</content>
+ </entry>
+
+ <entry>
+   <title>Oh, And I'm Back</title>
+   <link href="http://comatose.rubyforge.org/posts/oh-and-im-back/index.html" />
+   <updated>2006-08-31T00:00:00-05:00</updated>
+   <id>http://comatose.rubyforge.org/posts/oh-and-im-back/index.html</id>
+   <content type="html">
+&lt;p&gt;I forgot to mention, I made back from my vacation and seemingly requisite post-vacation sickness. For all you guys who kept an eye on the forums whilst I was away: Thanks! I really appreciate it.&lt;/p&gt;
+</content>
+ </entry>
+
+ <entry>
+   <title>Inline Rendering with ActionMailer</title>
+   <link href="http://comatose.rubyforge.org/posts/inline-rendering-with-actionmailer/index.html" />
+   <updated>2006-08-02T00:00:00-05:00</updated>
+   <id>http://comatose.rubyforge.org/posts/inline-rendering-with-actionmailer/index.html</id>
+   <content type="html">
+&lt;p&gt;Notes from &lt;em&gt;David Vrensk&lt;/em&gt; on how to use Comatose&#8217;s inline rendering with &lt;code&gt;ActionMailer&lt;/code&gt;&lt;/p&gt;
+</content>
+ </entry>
+
+ <entry>
+   <title>Version 0.6.9</title>
+   <link href="http://comatose.rubyforge.org/posts/version-0-6-9/index.html" />
+   <updated>2006-08-01T12:00:00-05:00</updated>
+   <id>http://comatose.rubyforge.org/posts/version-0-6-9/index.html</id>
+   <content type="html">
+  &lt;p&gt;Checked in a small update... &lt;/p&gt;
+</content>
+ </entry>
+
+ <entry>
+   <title>Comatose 0.6.3 and Edge Rails</title>
+   <link href="http://comatose.rubyforge.org/posts/comatose-0-6-3-and-edge-rails/index.html" />
+   <updated>2006-07-27T00:00:00-05:00</updated>
+   <id>http://comatose.rubyforge.org/posts/comatose-0-6-3-and-edge-rails/index.html</id>
+   <content type="html">
+&lt;p&gt;As most of you should know, &#8220;Edge&#8221; Rails &#8211; the latest code that&#8217;s on it&#8217;s way to becoming Rails 1.2 &#8211; has a completely re-written routes engine. It&#8217;s usage is the same, but the internals are pretty drastically different. That&#8217;s why Comatose hasn&#8217;t really supported Edge Rails, only official releases.&lt;/p&gt;
+</content>
+ </entry>
+
+ <entry>
+   <title>Comatose 0.6.8</title>
+   <link href="http://comatose.rubyforge.org/posts/comatose-0-6-8/index.html" />
+   <updated>2006-07-27T00:00:00-05:00</updated>
+   <id>http://comatose.rubyforge.org/posts/comatose-0-6-8/index.html</id>
+   <content type="html">
+  &lt;p&gt;There's been a few more updates I thought I'd summarize...&lt;/p&gt;
+</content>
+ </entry>
+
+ <entry>
+   <title>Comatose 0.6.5, Maintenance Release</title>
+   <link href="http://comatose.rubyforge.org/posts/comatose-0-6-5-maintenance-release/index.html" />
+   <updated>2006-07-24T10:00:00-05:00</updated>
+   <id>http://comatose.rubyforge.org/posts/comatose-0-6-5-maintenance-release/index.html</id>
+   <content type="html">
+  &lt;p&gt;Version 0.6.5 is another maintenance release.&lt;/p&gt;
+</content>
+ </entry>
+
+ <entry>
+   <title>Welcome to the Comatose Development Site</title>
+   <link href="http://comatose.rubyforge.org/posts/welcome-to-the-comatose-development-site/index.html" />
+   <updated>2006-07-23T00:00:00-05:00</updated>
+   <id>http://comatose.rubyforge.org/posts/welcome-to-the-comatose-development-site/index.html</id>
+   <content type="html">
+  &lt;p&gt;Welcome, you are looking at the new development website for the Rails plugin Comatose.&lt;/p&gt;
+</content>
+ </entry>
+
+ 
+</feed>

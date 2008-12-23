@@ -1,0 +1,37 @@
+<head>
+  <title>Create An FAQ</title>
+  <meta name="publish-date" content="2006-07-30 10:00"/>
+  <meta name="tags" content="how to">
+  <meta name="show_in_tuts" content="true" type="boolean"/>
+</head>
+<summary>
+  <p>Create a simple FAQ system with this tutorial.</p>
+</summary>
+<body>
+{% markdown %}
+Example page structure:
+
+    - Home Page
+      - FAQ
+        - Question One?
+        - Question Two?
+
+"FAQ" page content:
+
+    {% for child in page.children %}
+    * "{{ child.title }}":#{{ child.slug }}
+    {% endfor %}
+    
+    < hr >
+
+    {% for child in page.children %}
+    h3. {{ child.title }} <a name="{{ child.slug }}"></a>
+    
+    {{ child.content }}
+    
+    "Top":#
+    {% endfor %}
+
+
+{% endmarkdown %}
+</body>

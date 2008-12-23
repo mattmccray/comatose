@@ -1,0 +1,656 @@
+<head>
+  <title>Getting Started</title>
+  <meta name="publish-date" content="2008-12-23 13:26"/>
+  <meta name="show_in_tuts" content="false" type="boolean"/>
+</head>
+<summary>
+  <p>Getting started guided. <strong>Note:</strong> This is for version 0.8.1!</p>
+</summary>
+<body>
+<p><strong>Note:</strong> This is for version 0.8.1!</p>
+{% markdown %}
+* This will become a table of contents (this text will be scraped).
+{:toc}
+
+The Basics
+==========
+
+Comatose supports a hierarchal arrangement of pages. A page tree, in 
+other words. Every page has the following attributes:
+
+* `title`
+* `slug`
+* `full_path`
+* `keywords` 
+* `body`
+* `author`
+* `updated_on`
+
+Provided by `acts_as_tree`:
+
+* `parent`
+* `children`
+
+
+The `slug` is generally a URI accessible name based on the `title`. For 
+example, if your page is titled "My Favorite Food" the slug will be
+`my-favorite-food`.
+
+The `full_path` is the page's full path from the root node.
+
+The page tree's _root_ node is the 'Home Page', by default, and always 
+has an empty `full_path`.
+
+
+Installation
+------------
+
+From your root application folder, run:
+
+    $ ./script/plugin source http://mattmccray.com/svn/rails/plugins
+    $ ./script/plugin install comatose
+    $ ./script/generate comatose_migration
+    $ rake migrate
+
+Then add the following, as a starting point, to your `config/routes.rb` file:
+
+    map.comatose_admin
+    map.comatose_root ''
+
+That's it! The plugin is installed and ready for integration.
+
+
+Upgrading From Earlier Versions
+-------------------------------
+
+If you are upgrading from an older version of Comatose (from version 0.3
+to 0.4 or 0.5), then you will need to re-install the comatose plugin by
+running:
+
+    $ ./script/plugin remove comatose
+    $ ./script/plugin install comatose
+
+Then, you'll need to generate a migration for the updated fields:
+
+    $ ./script/generate comatose_migration --upgrade --from=0.5
+    $ rake migrate
+
+Where the '0.5' in the `from` parameter is the version you are upgrading
+from.
+
+That's it for updating the plugin! You now have the latest code and 
+updated schema. If you've made customizations to the administration
+views, you'll need to upgrade them as well. See the customization
+documentation for more on that.
+
+Integrating With Your Application
+=================================
+
+Now that you have the Comatose plugin installed and ready for action, it
+needs to know which 'root' path, or base URI, to serve content from. That
+mapping is done in your `routes.rb` file. It's as simple as adding the 
+following as the last entry (even after the `map.connect 
+':controller/:action/:id'` route):
+
+{% sourcecode 'rb' %}
+map.comatose_admin
+map.comatose_root ''
+{% endsourcecode %}
+
+With this in place, Comatose will start serving pages directly from the 
+root of the application. Since it's the last route, if there aren't any 
+previous matches (to the other routes you've defined for your 
+application), it will pass the URI info on to the `ComatoseController`.
+
+*Note*: Don't forget to remove the default Rails `index.html` from `app/public/`,
+if it's there it will be used by the server instead of the comatose root page!
+
+This is the bare minimum for integration. At this point, you should be able to visit 
+<http://127.0.0.1:3000/comatose_admin> and start adding pages.
+
+Multiple Mount Points
+---------------------
+
+You can map multiple roots to your application by simply calling the 
+`map.comatose_root` once for each location.
+
+{% sourcecode 'rb' %}
+map.comatose_root 'pages'
+map.comatose_root 'content'
+{% endsourcecode %}
+
+That's nifty, but it doesn't seem to be all that useful like that. Now,
+if you can map a URI root path to a sub-page of your page tree, then it
+becomes handy. Here's how you'd do that:
+
+{% sourcecode 'rb' %}
+map.comatose_root 'help', :index=>'help'
+map.comatose_root 'content', :index=>'other-content'
+{% endsourcecode %}
+
+
+Mount Point Configuration
+-------------------------
+
+You can configure how Comatose works per root path. Here are the options
+you can specify when calling `map.comatose_root`:
+
+* `:index` -- The `full_path` of the page to mount to this path
+* `:layout` -- The Rails layout to use when rendering this page
+* `:use_cache` -- Setting to `false` disables caching for this mount point
+
+So, perhaps we have a page in our tree that is the parent node for all of
+our application help. And perhaps we want it styled differently than the
+other comatose pages. To do that, we'd just create a new Rails layout and
+tell Comatose to use that layout when rendering all help pages:
+
+{% sourcecode 'rb' %}
+map.comatose_root 'help', :index=>'application-help', :layout=>'help_layout'
+map.comatose_root '' 
+{% endsourcecode %}
+
+When you don't send in the `:index`, it will default to the root node.
+Also, Comatose will use a generic layout that's been included in the
+plugin if you don't specify a `:layout`.
+
+
+Named Comatose Routes
+---------------------
+
+You can add named routes for Comatose mount points. You use 
+`map.comatose_*` where "`*`" is anything other than "`root`".
+
+{% sourcecode 'rb' %}
+map.comatose_help 'help', :index=>'application-help', :layout=>'help_layout'
+{% endsourcecode %}
+
+This will create a `comatose_help` named routed that you can use elsewhere
+in your application. You can specify a child page of a named route like 
+this:
+
+{% sourcecode 'rb' %}
+<%= link_to "Account Help", comatose_help_url(:page=>'account') %>
+{% endsourcecode %}
+
+
+Page Content
+------------
+
+The page body gets processed, then filtered. Processing generates content
+based on dynamic tags (in Liquid, or ERB). Filtering takes the content 
+and converts it into HTML.
+
+
+Text Filters
+------------
+
+Text filters convert the text into HTML. Comatose comes pre-configured 
+with support for using Textile, Markdown, Markdown+SmartyPants, or RDoc.
+
+If there is another text filter type you'd prefer beyond the default 
+filters, you can write your own text filter as simply as putting this in 
+your `environment.rb` file:
+
+{% sourcecode 'rb' %}
+# SMARTYPANTS
+TextFilters.define "SmartyPants" do |text|
+  require 'rubypants'
+
+  def render_text(text)
+    RubyPants.new(text).to_html
+  end
+end
+{% endsourcecode %}
+
+If you try to `require` a library that isn't installed, the `TextFilter`
+will not enable the filter. Therefore the filter drop-down on the edit page
+form will never show a filter that throws an exception when being loaded.
+For this to work properly, you have to `require` the library within the 
+`TextFilters.define` block.
+
+
+Text Processing
+---------------
+
+The page body is also is run through Liquid or ERb, so you can get kinda fancy. Here 
+are all the items you have access to in the processing context:
+
+* `page.title`
+* `page.slug`
+* `page.keywords`
+* `page.has_keyword.`*`key`* -- where *key* is the keyword you're testing for
+* `page.uri`
+* `page.link`                -- returns a link to current page
+* `page.content`             -- processed and filtered page.body
+* `page.author`
+* `page.updated_on`
+* `page.created_on`
+* `page.parent`              -- the parent page
+* `page.children`            -- array of child pages
+* `page.rchildren`           -- array of child pages in reverse order
+* `params.*`                 -- `request` info and any passed params from the mounting point
+* `*` (Any params sent via `:locals` when inline)
+
+
+Inline Rendering
+----------------
+
+Comatose allows rendering of pages inline from your application view, it's
+used just like rendering a partial:
+
+{% sourcecode 'rb' %}
+<%= render :comatose=>'about' %>
+{% endsourcecode %}
+
+Where 'about' is the page path. By default it will return a failure 
+message if you send it a path it can't find. You can tell it not to by
+sending it  the `:silent` flag, like this:
+
+{% sourcecode 'rb' %}
+<%= render :comatose=>'site/navigation', :silent=>true %>
+{% endsourcecode %}
+
+
+Sending Parameters
+------------------
+
+Just like partial, inline rendering supports sending a `:locals` hash, 
+allowing you to send parameters to the comatose page being rendered:
+
+{% sourcecode 'rb' %}
+<%= render :comatose=>'welcome', :locals=>{ :username=>'USERNAME' } %>
+{% endsourcecode %}
+
+The parameters are accessible from the page processor just like a page
+attribute. For example:
+
+{{ this.attachment.param_snippet | sourcecode }}
+
+Using ComatoseDrops to Access Application Data
+----------------------------------------------
+
+Comatose is designed to be as safe as possible. By default it removes access of  destructive ActiveRecord methods, and it doesn't allow access into your application either. What does that mean? It means, by default, you can't access Rails' helpers, or your application helpers from within the page's content. 
+
+However, there are times when it's useful to provide a page access to application data. To do that you create a ComatoseDrop. If you're familiar with Liquid's Drop, then you'll feel right at home. Here's an example of simple ComatoseDrop:
+
+{% sourcecode 'rb' %}
+Comatose.define_drop 'news' do
+
+  def latest_headlines
+    News.find(:all, :conditions=>['created_on > ?', 2.weeks.ago]).collect {|n| n.title }
+  end
+
+end
+{% endsourcecode %}
+
+Now, within a comatose page it can be referenced like this:
+
+{{ this.attachment.drop_snippet | sourcecode }}
+
+Viola! That's it.
+
+Comatose Administration
+=======================
+
+Configuration
+-------------
+
+Before version 0.8, Comatose had few options that you could set via the `Comatose::Options` class. For everything else, it was expected that you would override methods on the `ComatoseController` and `ComatoseAdminController` classes. However, newer versions of Comatose support a more advanced configuration system that lets you configure just about everything in one place. 
+
+You'll configure Comatose in your `environment.rb` file. Here's an example of the configuration block:
+
+{% sourcecode 'rb' %}
+Comatose.configure do |config|
+  # Sets the text in the Admin UI's title area
+  config.admin_title = "Site Content"
+  config.admin_sub_title = "Content for the rest of us..."
+end
+{% endsourcecode %}
+
+See "Configuration Settings" (below) for a complete listing of the configuration options. Following are a few of the highlights.
+
+
+Administration Header
+----------------
+
+At the top of the comatose admin, it says 'Comatose' with a sub-title
+of 'The Micro CMS'. You can change these values without having to do a 
+complete re-skin by defining these settings:
+
+{% sourcecode 'rb' %}
+config.admin_title = "My App's CMS"
+config.admin_sub_title = "Because size does matter..."
+{% endsourcecode %}
+
+
+Content Types
+----------------
+
+You can tell Comatose what content-type to use. By default, it's set to  use 'utf-8'. This should be fine for most uses, but if you are developing an application in a different charset, you can set it like this:
+
+{% sourcecode 'rb' %}
+config.content_type = 'iso-8859-1'
+{% endsourcecode %}
+
+
+Page Tree Expansion
+----------------
+
+You can also set the default level of expansion on the page tree
+like this:
+
+{% sourcecode 'rb' %}
+config.default_tree_level = 3
+{% endsourcecode %}
+
+By default, it's set to 2 -- which shows the first two levels of pages.
+
+
+Blockable Settings
+------------------
+
+Some configuration settings allow you to attach a block of code to them. You can use these for returning dynamic values.
+
+You can define modules to include in the `ComatoseController` by adding to the list of `config.includes`. You will have access to the module's code from within the setting blocks and the layout. 
+
+Use `config.admin_includes` for the `ComatoseAdminController`.
+
+If you need access to certain helpers in the layout(s) Comatose uses, you can add to `config.helpers` or `config.admin_helpers`.
+
+**Note:** These do not add methods, or tags, to a page's content. Just to the layout.
+
+
+Authentication
+--------------
+
+You probably don't want just anybody to add, edit, or delete your comatose pages (Aw CRUD!). The `ComatoseAdminController` calls an `#authorize` method for every action as a `before_filter`. That `#authorize` method then looks for the `config.admin_authorization` block and executes it. 
+
+So by defining the `config.admin_authorization` setting you can lock down access to the comatose admin.
+
+{% sourcecode 'rb' %}
+Comatose.configure do |config|
+
+  # Includes AuthenticationSystem in the ComatoseAdminController
+  config.admin_includes << :authenticated_system
+
+  # Calls :login_required as a before_filter
+  config.admin_authorization = :login_required
+
+end
+{% endsourcecode %}
+
+
+Setting the Author
+------------------
+
+Without modification, Comatose will set the page `author` as the 
+`REMOTE_ADDR` sent by the browser -- usually an IP address. If you want
+it to be something else, it's as simple as defining the `config.admin_get_author`
+setting. If you've implemented authentication, it could look something
+like this:
+
+{% sourcecode 'rb' %}
+Comatose.configure do |config|
+
+  # Includes AuthenticationSystem in the ComatoseAdminController
+  config.admin_includes << :authenticated_system
+
+  # Returns the author name (login, in this case) for the current user
+  config.admin_get_author do
+    current_user.login
+  end
+end
+{% endsourcecode %}
+
+
+Customizing The Administration Views
+------------------------------------
+
+Comatose comes out-of-the-box with a serviceable administration UI. But 
+if you want to modify it so that it will match your application's 
+look-n-feel, it's easy to accomplish because there's a rake task 
+available to help you get started.
+
+    $ rake comatose:admin:customize
+
+When you run the task, it will copy the views and layouts it uses into 
+your application folders (`app/views/comatose_admin` and 
+`app/views/layouts/comatose_admin.rhtml`) folder, giving you total 
+control over how it looks and behaves.
+
+Following is a list of all the files it will copy into your application
+folder structure:
+
+    app/
+      views/
+        comatose_admin/           <- Admin views
+          _form.rhtml
+          _page_list_item.rhtml
+          edit.rhtml
+          index.rhtml
+          new.rhtml
+        layouts/
+          comatose_admin.rhtml    <- Admin UI layout
+    public/
+      javascripts/
+        comatose_admin.js         <- Admin UI javascript
+      stylesheets/
+        comatose_admin.css        <- Admin UI css
+
+Advanced Features
+=================
+
+Meta Fields
+-----------
+
+You can hide some of the 'meta' information fields in the `admin` if you'd 
+like by adding the string names of the fields to hide in the configuration
+block:
+
+{% sourcecode 'rb' %}
+config.hidden_meta_fields << 'keywords'
+{% endsourcecode %}
+
+The supported meta fields that you can hide are:
+
+* keywords
+* parent -- **Note**: A page can't be moved without this
+* filter
+* preview
+
+
+Page Caching
+------------
+
+Page caching is enabled, by default, for comatose pages. Pages will only
+expire when you edit/delete them from the comatose admin. To remove all
+cached pages use the 'Clear Page Cache' command in the admin.
+
+You _can_ override page caching per mount point by sending 
+`:use_cache=>'false'`. It can also be overridden globally by using the 
+config setting:
+
+{% sourcecode 'rb' %}
+config.disable_caching = true
+{% endsourcecode %}
+
+
+Fragment Caching
+----------------
+
+Versions 0.5+ support fragment caching of inline rendered content. 
+You can instruct comatose not to use the fragment cache by sending 
+`:use_cache=>false` like this:
+
+{% sourcecode 'rb' %}
+<%= render :comatose=>'path', :use_cache=>false %>
+{% endsourcecode %}
+
+Oh, and be sure to set `ActionController::Base.fragment_cache_store` in
+your `environment.rb` file:
+
+{% sourcecode 'rb' %}
+ActionController::Base.fragment_cache_store = :file_store, File.join(RAILS_ROOT, 'tmp', 'cache', 'fragments')
+{% endsourcecode %}
+
+**Note**: Caching will automatically be disabled if you send page 
+parameters via the `:locals` hash.
+
+
+Data Migration
+--------------
+
+A lot of times you'll create pages in development that you want to 
+transfer to production without having to do the old copy-n-paste dance.
+To help accommodate this, comatose comes with two rake tasks just for 
+this purpose.
+
+### Page Export
+
+By running:
+
+    $ rake comatose:data:export
+
+You will get a `db/comatose-pages.yml` file with all the pages in your
+active database.
+
+The `FROM` environment variable is the page path starting point. It will
+only export the pages from the page at path `ENV[FROM]` down. If you 
+don't specify `FROM`, it default to the homepage ''.
+
+    $ rake comatose:data:export FROM=faq
+
+You can specify the output file if you don't want to use 
+`db/comatose.yml` or you want to export multiple branches by defining the 
+`TO_FILE` environment variable:
+
+    $ rake comatose:data:export TO_FILE=db/other-pages.yml
+
+You can, of course, mix and match these:
+
+    $ rake comatose:data:export FROM=site-help TO_FILE=db/help-pages.yml
+
+### Page Import
+
+The import process is just like exporting...
+
+    $ rake comatose:data:import 
+
+This loads the pages from `db/comatose-pages.yml` into your active 
+database.
+
+To import somewhere other than the page tree root, you can specify the
+`TO` environment variable:
+
+    $ rake comatose:data:import TO=faq
+
+You can also specify a page.yml file other than the default by setting 
+the `FROM_FILE` environment variable:
+
+    $ rake comatose:data:import TO=help FROM_FILE=db/help-pages.yml
+
+Keep in mind that task loads `environment.rb`, so you'll probably want
+to specify the `RAILS_ENV` like this:
+
+    $ RAILS_ENV=development rake comatose:data:export
+    $ RAILS_ENV=production rake comatose:data:import
+
+Or...
+
+    $ RAILS_ENV=development rake comatose:data:export FROM=help
+    $ RAILS_ENV=production rake comatose:data:import TO=help
+
+
+Multi-User / Limited View
+-------------------------
+
+It's possible to limit the view of a user to a certain sub-branch, or sub-
+branches, of the page hierarchy. You define the `config.admin_get_root_page` setting
+to return a `ComatosePage` object, or an `Array` of `ComatosePage`s.
+
+This example defines both the `config.admin_authorization` and the `config.admin_get_root_page`
+settings:
+
+    
+{% sourcecode 'rb' %}
+Comatose.configure do |config|
+
+  # Includes AuthenticationSystem in the ComatoseAdminController
+  config.admin_includes << :authenticated_system
+
+  # Calls :login_required as a before_filter
+  config.admin_authorization = :login_required
+  
+  # Returns different 'root paths'
+  config.admin_get_root_page do
+  
+    if current_user.role == 'XXXX' # This depends on your system
+      Comatose::Page.find_by_path( 'site/help' )
+      
+    elsif current_user.role == 'YYYY'
+      # Returns multiple 'roots'
+      [
+        Comatose::Page.find_by_path( 'site/help' ),
+        Comatose::Page.find_by_path( 'app/faq' )
+      ]
+      
+    else
+      Comatose::Page.root
+      
+    end
+  end
+
+end
+{% endsourcecode %}
+
+
+
+Using ERB Instead of Liquid
+---------------------------
+
+In your configuration block, set the following:
+
+{% sourcecode 'rb' %}
+config.default_processor = :erb
+{% endsourcecode %}
+
+Now it will use ERB for text processing instead of Liquid. There are a few minor differences in the context to keep in mind. For example, instead of using `page.has_keyword.key`, you can use the more ruby-like `page.has_keyword? key`.
+
+Configuration Settings
+======================
+
+Default Configuration
+---------------------
+
+Following is a configuration block with all of the supported settings and 
+their defaults:
+
+{% sourcecode 'rb' %}
+Comatose.configure do |config|
+
+  config.admin_title          = 'Comatose'
+  config.admin_includes       = []
+  config.admin_helpers        = []
+  config.admin_sub_title      = 'The Micro CMS'
+  config.content_type         = 'utf-8'
+  config.default_filter       = 'Textile'
+  config.default_processor    = :liquid
+  config.default_tree_level   = 2
+  config.disable_caching      = false
+  config.hidden_meta_fields   = []
+  config.helpers              = []
+  config.includes             = []
+
+  # These are 'blockable' settings
+  config.authorization        = Proc.new { true }
+  config.admin_authorization  = Proc.new { true }
+  config.admin_get_author     = Proc.new { request.env['REMOTE_ADDR'] }
+  config.admin_get_root_page  = Proc.new { Comatose::Page.root }
+  config.after_setup          = Proc.new { true }
+
+end
+{% endsourcecode %}
+
+
+{% endmarkdown %}
+</body>

@@ -1,0 +1,100 @@
+PRE {
+  border-left: 4px solid #EEE;
+  padding-left: 10px;
+}
+
+/* ======================= */
+/* = Syntax Highlighting = */
+/* ======================= */
+.javascript .comment, .ruby .comment {
+  color : green;
+}
+
+.javascript .string, .ruby .string {
+  color : teal;
+}
+
+.javascript .keywords, .ruby .keywords {
+  color : navy;
+}
+
+.javascript .global {
+  color : blue;
+}
+
+.javascript .brackets, .ruby .brackets, .javascript .modifiers, .ruby .modifiers {
+  color : #AC0000;
+}
+
+
+
+.css .comment {
+  color : gray;
+}
+
+.css .properties {
+  color : navy;
+}
+
+.css .selectors {
+  color : maroon;
+  font-weight : bold;
+}
+
+.css .units {
+  color :red;
+}
+
+.css .urls {
+  color :green;
+}
+
+.html .tag, .html .endtag {
+  color : blue;
+}
+
+.html .comment {
+  color : gray;
+  font-style: italic;
+}
+
+.html .string {
+  color : purple;
+}
+
+.html .symbols {
+  color: #D76C00;
+}
+
+.html .attribute {
+  color: teal;
+}
+
+.html .eqls {
+  color: #B50000;
+}
+
+.html .doctype {
+  color : teal;
+}
+
+.ruby .symbol {
+  color: red;
+}
+
+.ruby .attribute {
+  color: teal;
+}
+
+.ruby .string {
+  color: purple;
+}
+.ruby .comment {
+  color: #999;
+}
+/*.ruby .brackets {
+  color: #900000;
+}
+*/.ruby .keywords {
+  color: #D76C00;
+}

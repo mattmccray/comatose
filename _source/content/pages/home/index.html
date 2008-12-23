@@ -1,0 +1,35 @@
+<head>
+  <title>Welcome!</title>
+  <meta name="show_in_tuts" content="false" type="boolean"/>
+</head>
+<body>
+  <h1>Blog Entries:</h1>
+  <div class="home">
+
+  {% for post in posts limit:1 %}
+      <div class="post summary">
+        <h2>{{ post.title }}</h2>
+        <div class="meta">Published on {{ post.publish_date | short_date }}.</div>
+        <div class="body">
+          {{ post.summary }}
+          <p><a href="{{ post | uri_rel }}">Read more...</a></p>
+        </div>
+      </div>
+  {% endfor %}
+
+  </div>
+
+  <div class="archive">
+    <h3>Recently on <strike>Lost</strike> the DevBlog:</h3>
+
+    {% for post in posts limit:5 offset:1 %}
+        <div class="post summary">
+          <h4>
+            <a href="{{ post | uri_rel }}">{{ post.title }}</a>
+            <span class="meta">{{ post.publish_date | short_date }}</span>
+          </h4>
+        </div>
+    {% endfor %}
+
+  </div>
+</body>

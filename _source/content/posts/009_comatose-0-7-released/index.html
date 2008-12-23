@@ -1,0 +1,44 @@
+<head>
+  <title>Comatose 0.7 Released!</title>
+  <meta name="publish-date" content="2006-09-20 00:00"/>
+  <meta name="tags" content="releases">
+</head>
+<summary>
+{% markdown %}
+Comatose version 0.7 is ready to go!
+{% endmarkdown %}
+</summary>
+<body>
+{% markdown %}
+Comatose version 0.7 is ready to go! This release features:
+
+* Page versioning
+* Automatic loading of comatose extension scripts from `RAILSROOT/lib/comatose/`
+* And, of course, bug-fixes (previewing no longer modifies the page record -- that was a big bug that slipped through the cracks)
+
+
+**Page Versions**
+
+Only content fields are versioned, namely: `title`, `body`, `slug`, and `keywords`. Which is to say that they're the only ones, if changed, that will trigger the creation of a new version.
+
+The *versions* view shows the current version on the left side, and the selected older version on the right. You can change which older version is shown, and mark the older one as the current version.
+
+There's also a new database table to support all this so... You guessed it: A new migration. But it's still as easy as ever. If you're upgrading from version 0.6.9, you can run:
+
+    $ ./script/plugin remove comatose
+    $ ./script/plugin install comatose
+    $ ./script/generate comatose_migration --upgrade --from=0.6
+    $ rake migrate
+
+That's it. If you're upgrading from an even older version, no big deal - just make sure and specify the version in the `from` parameter ( `--from=#.#`).
+
+Versioning is supported using [Rick Olsen][]'s excellent [acts as versioned][] library (included with Comatose). 
+
+**Comatose Extension Scripts Folder**
+
+Comatose will now automatically load all `*.rb` files in the `RAILS_ROOT/lib/comatose` folder (if it exists). If you put your comatose-specific customizations, tags, and filters in that folder, then you won't need to muck around in your `environment.rb` file anymore.
+
+[Rick Olsen]: http://weblog.techno-weenie.net
+[acts as versioned]: http://ar-versioned.rubyforge.org
+{% endmarkdown %}
+</body>

@@ -1,0 +1,21 @@
+site:
+  title: "Comatose"
+  subtitle: "The Rails Micro CMS Plugin"
+  copyright: "Copyright M@ McCray."
+  homepage: "pages/home"
+  base_url: "http://comatose.rubyforge.org"
+  theme: "default"
+  author:
+    name: "M@ McCray"
+    email: "darthapo@gmail.com"
+
+generator:
+  output: '../'
+  relative_links: true
+  cleanup_xhtml: true
+  force_xhtml: false
+  tagging: true
+
+
+stratus: # Don't touch this section!
+  version: 0.3

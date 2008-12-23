@@ -1,0 +1,95 @@
+<head>
+  <title>Create A Simplistic Blog</title>
+  <meta name="publish-date" content="2006-07-30 00:00"/>
+  <meta name="tags" content="how to">
+  <meta name="show_in_tuts" content="true" type="boolean"/>
+</head>
+<summary>
+  <p>Create a simple blog using this tutorial.</p>
+</summary>
+<body>
+{% markdown %}
+**Updated to reflect changes as of v0.8.1**
+
+Example Page structure:
+
+    - Home Page
+      - Blog
+        - First Post
+        - Second Post
+        - Latest Post
+
+Page content for "Blog" page:
+
+    {% for child in page.rchildren %}
+    {% unless child.has_keyword.draft %}
+    <div class="post">
+
+    h3. {{ child.link }}
+    
+    <div class="post-meta">by {{ child.author }} {{ child.created_on | time_ago }} ago</div>
+    
+    {{ child.content }}
+
+    </div>
+    {% endunless %}
+    {% endfor %}
+
+
+Adding Comments Via HaloScan
+----------------------------
+
+You can create a ComatoseDrop to add [Haloscan][] comment support (this would probably go in your `environment.rb`, or a separate file required by your `environment.rb`):
+
+    # This defines a Drop for use with the Liquid processor
+    # And an object you can call from the ERB processor
+    
+    Comatose.define_drop "haloscan" do 
+    
+      # Your HaloScan USERNAME here:
+      @halo_user = 'user_x'
+
+      def script
+        %Q|<notextile><script type="text/javascript" src="http://www.haloscan.com/load/#{ @halo_user }"> </script></notextile>|
+      end
+  
+      def trackbacks(slug=nil)
+        # Look for the varable 'child.slug' in the context, unless the slug has been passed in
+        slug = @context['child']['slug'] if @context.has_key? 'child' and slug.nil?
+        # If it's not found, use the 'page.slug'
+        slug = @context['page']['slug'] unless slug
+        %Q|<notextile><a href="javascript:HaloScanTB('#{slug}');" target="_self"><script type="text/javascript">postCountTB('#{slug}'); </script></a></notextile>|               
+      end
+  
+      def comments(slug=nil)
+        slug = @context['child']['slug'] if @context.has_key? 'child' and slug.nil?
+        slug = @context['page']['slug'] unless slug
+        puts "Comments ~> Slug = #{slug}"
+        %Q|<notextile><a href="javascript:HaloScan('#{slug}');" target="_self"><script type="text/javascript">postCount('#{slug}');</script></a></notextile>|
+      end
+
+    end
+
+Then, on your Blog listing page:
+
+    {{ haloscan.script }}
+    
+    {% for child in page.rchildren %}
+    {% unless child.has_keyword.draft %}
+    <div class="post">
+
+    h3. {{ child.link }}
+    
+    <div class="post-meta">by {{ child.author }} on {{ child.created_on | time_ago | date: '%m/%d/%Y @ %H:%M' }}, 
+    {{ haloscan.comments }} {{ haloscan.trackbacks }}</div>
+    
+    {{ child.content }}
+
+    </div>
+    {% endunless %}
+    {% endfor %}
+
+[Haloscan]:http://www.haloscan.com/
+{% endmarkdown %}
+
+</body>

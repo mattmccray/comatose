@@ -1,0 +1,18 @@
+default:
+  local_slug: 'index' # index | date | none
+  slug_format: '###'
+  sort: 'index'
+  reverse: false
+  feed: true
+
+pages:
+  sort: 'title'
+  local_slug: 'none'
+  feed: false
+
+posts:
+  local_slug: 'index'
+  remote_slug: 'date'
+  slug_format: '%Y-%m-%d'
+  sort: 'publish_date'
+  reverse: true

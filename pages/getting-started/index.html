@@ -1,0 +1,620 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+    <title>Comatose :: Getting Started</title>
+    <script src="../../theme/scripts/code_highlighter.js"></script>
+    <script src="../../theme/scripts/code_syntax.js"></script>
+    <link href="../../theme/styles/main.css" rel="stylesheet" type="text/css" media="screen" />
+    <link href="../../theme/styles/code_syntax.css" rel="stylesheet" type="text/css" media="screen" />
+    <link href="posts/feed.xml" title="RSS Feed" rel="alternate" type="application/rss+xml" />
+    <script type="text/javascript" src="http://www.haloscan.com/load/comatose"></script>
+    
+  </head>
+  <body>
+    <div class="header-logo">
+      <div class="header-text">
+        <h1>Comatose</h1>
+        <div class="subtitle">
+          The Rails Micro CMS Plugin
+        </div>
+      </div>
+    </div>
+    <div class="sidebar">
+      <div class="navigation">
+        <ul>
+          <li><a href="../../index.html">Home</a></li>
+          <li><a href="../../posts/index.html">Devblog</a></li>
+          <li><a href="../../pages/getting-started/index.html">Getting Started</a></li>
+          <li><a href="../../pages/index.html">Tutorials</a></li>
+          <li><a href="http://github.com/darthapo/comatose/tree/master">@GitHub</a></li>
+          <li><a href="http://code.google.com/p/comatose-plugin/issues/entry">Report A Bug</a></li>
+        </ul>
+        
+        <div class="donation">
+        <form action="https://www.paypal.com/cgi-bin/webscr" method="post">
+        <input name="cmd" type="hidden" value="_s-xclick" />
+        <input name="submit" type="image" src="https://www.paypal.com/en_US/i/btn/x-click-but21.gif" border="0" alt="Make payments with PayPal - it's fast, free and secure!" />
+        <img src="https://www.paypal.com/en_US/i/scr/pixel.gif" border="0" height="1" alt="" width="1" />
+        <input name="encrypted" type="hidden" value="-----BEGIN PKCS7-----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-----END PKCS7-----" />
+        </form>
+        </div>
+        
+        <div class="recent-comments">
+          <h3>Recent Comments...</h3>
+          <script type="text/javascript" src="http://www.haloscan.com/members/recent/comatose/"> </script>
+        </div>
+
+        <p>&nbsp;</p>
+        
+        <div class="sidebar-ad">
+          <script type="text/javascript"><!--
+          google_ad_client = "pub-4148538552356376";
+          google_alternate_color = "FFFFFF";
+          google_ad_width = 120;
+          google_ad_height = 240;
+          google_ad_format = "120x240_as";
+          google_ad_type = "text_image";
+          google_ad_channel ="3834916953";
+          google_color_border = "CCCCCC";
+          google_color_bg = "FFFFFF";
+          google_color_link = "7F7F7F";
+          google_color_text = "000000";
+          google_color_url = "008000";
+          //--></script>
+          <script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+          </script>
+        </div>
+      </div>
+    </div>
+    <div class="page-container">
+      <div class="contents">
+        <div id="header-ad">
+          <script type="text/javascript"><!--
+          google_ad_client = "pub-4148538552356376";
+          google_alternate_color = "FFFFFF";
+          google_ad_width = 120;
+          google_ad_height = 90;
+          google_ad_format = "120x90_0ads_al";
+          google_ad_channel ="3834916953";
+          google_color_border = "CCCCCC";
+          google_color_bg = "FFFFFF";
+          google_color_link = "7F7F7F";
+          google_color_text = "000000";
+          google_color_url = "008000";
+          //--></script>
+          <script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+          </script>
+        </div>
+        
+<div class="page">
+  <h2>Getting Started</h2>
+  <div class="body">
+    
+<p><strong>Note:</strong> This is for version 0.8.1!</p>
+<div class="maruku_toc"><ul style="list-style: none;"><li><a href="#the_basics">The Basics</a><ul style="list-style: none;"><li><a href="#installation">Installation</a></li><li><a href="#upgrading_from_earlier_versions">Upgrading From Earlier Versions</a></li></ul></li><li><a href="#integrating_with_your_application">Integrating With Your Application</a><ul style="list-style: none;"><li><a href="#multiple_mount_points">Multiple Mount Points</a></li><li><a href="#mount_point_configuration">Mount Point Configuration</a></li><li><a href="#named_comatose_routes">Named Comatose Routes</a></li><li><a href="#page_content">Page Content</a></li><li><a href="#text_filters">Text Filters</a></li><li><a href="#text_processing">Text Processing</a></li><li><a href="#inline_rendering">Inline Rendering</a></li><li><a href="#sending_parameters">Sending Parameters</a></li><li><a href="#using_comatosedrops_to_access_application_data">Using ComatoseDrops to Access Application Data</a></li></ul></li><li><a href="#comatose_administration">Comatose Administration</a><ul style="list-style: none;"><li><a href="#configuration">Configuration</a></li><li><a href="#administration_header">Administration Header</a></li><li><a href="#content_types">Content Types</a></li><li><a href="#page_tree_expansion">Page Tree Expansion</a></li><li><a href="#blockable_settings">Blockable Settings</a></li><li><a href="#authentication">Authentication</a></li><li><a href="#setting_the_author">Setting the Author</a></li><li><a href="#customizing_the_administration_views">Customizing The Administration Views</a></li></ul></li><li><a href="#advanced_features">Advanced Features</a><ul style="list-style: none;"><li><a href="#meta_fields">Meta Fields</a></li><li><a href="#page_caching">Page Caching</a></li><li><a href="#fragment_caching">Fragment Caching</a></li><li><a href="#data_migration">Data Migration</a><ul style="list-style: none;"><li><a href="#page_export">Page Export</a></li><li><a href="#page_import">Page Import</a></li></ul></li><li><a href="#multiuser__limited_view">Multi-User / Limited View</a></li><li><a href="#using_erb_instead_of_liquid">Using ERB Instead of Liquid</a></li></ul></li><li><a href="#configuration_settings">Configuration Settings</a><ul style="list-style: none;"><li><a href="#default_configuration">Default Configuration</a></li></ul></li></ul></div>
+<h1 id="the_basics">The Basics</h1>
+
+<p>Comatose supports a hierarchal arrangement of pages. A page tree, in other words. Every page has the following attributes:</p>
+
+<ul>
+<li><code>title</code></li>
+
+<li><code>slug</code></li>
+
+<li><code>full_path</code></li>
+
+<li><code>keywords</code></li>
+
+<li><code>body</code></li>
+
+<li><code>author</code></li>
+
+<li><code>updated_on</code></li>
+</ul>
+
+<p>Provided by <code>acts_as_tree</code>:</p>
+
+<ul>
+<li><code>parent</code></li>
+
+<li><code>children</code></li>
+</ul>
+
+<p>The <code>slug</code> is generally a URI accessible name based on the <code>title</code>. For example, if your page is titled &#8220;My Favorite Food&#8221; the slug will be <code>my-favorite-food</code>.</p>
+
+<p>The <code>full_path</code> is the page&#8217;s full path from the root node.</p>
+
+<p>The page tree&#8217;s <em>root</em> node is the &#8216;Home Page&#8217;, by default, and always has an empty <code>full_path</code>.</p>
+
+<h2 id="installation">Installation</h2>
+
+<p>From your root application folder, run:</p>
+
+<pre><code>$ ./script/plugin source http://mattmccray.com/svn/rails/plugins
+$ ./script/plugin install comatose
+$ ./script/generate comatose_migration
+$ rake migrate</code></pre>
+
+<p>Then add the following, as a starting point, to your <code>config/routes.rb</code> file:</p>
+
+<pre><code>map.comatose_admin
+map.comatose_root &#39;&#39;</code></pre>
+
+<p>That&#8217;s it! The plugin is installed and ready for integration.</p>
+
+<h2 id="upgrading_from_earlier_versions">Upgrading From Earlier Versions</h2>
+
+<p>If you are upgrading from an older version of Comatose (from version 0.3 to 0.4 or 0.5), then you will need to re-install the comatose plugin by running:</p>
+
+<pre><code>$ ./script/plugin remove comatose
+$ ./script/plugin install comatose</code></pre>
+
+<p>Then, you&#8217;ll need to generate a migration for the updated fields:</p>
+
+<pre><code>$ ./script/generate comatose_migration --upgrade --from=0.5
+$ rake migrate</code></pre>
+
+<p>Where the &#8216;0.5&#8217; in the <code>from</code> parameter is the version you are upgrading from.</p>
+
+<p>That&#8217;s it for updating the plugin! You now have the latest code and updated schema. If you&#8217;ve made customizations to the administration views, you&#8217;ll need to upgrade them as well. See the customization documentation for more on that.</p>
+
+<h1 id="integrating_with_your_application">Integrating With Your Application</h1>
+
+<p>Now that you have the Comatose plugin installed and ready for action, it needs to know which &#8216;root&#8217; path, or base URI, to serve content from. That mapping is done in your <code>routes.rb</code> file. It&#8217;s as simple as adding the following as the last entry (even after the <code>map.connect 
+&#39;:controller/:action/:id&#39;</code> route):</p>
+<pre><code class="ruby">
+map.comatose_admin
+map.comatose_root ''
+</code></pre>
+<p>With this in place, Comatose will start serving pages directly from the root of the application. Since it&#8217;s the last route, if there aren&#8217;t any previous matches (to the other routes you&#8217;ve defined for your application), it will pass the URI info on to the <code>ComatoseController</code>.</p>
+
+<p><em>Note</em>: Don&#8217;t forget to remove the default Rails <code>index.html</code> from <code>app/public/</code>, if it&#8217;s there it will be used by the server instead of the comatose root page!</p>
+
+<p>This is the bare minimum for integration. At this point, you should be able to visit <a href="http://127.0.0.1:3000/comatose_admin">http://127.0.0.1:3000/comatose_admin</a> and start adding pages.</p>
+
+<h2 id="multiple_mount_points">Multiple Mount Points</h2>
+
+<p>You can map multiple roots to your application by simply calling the <code>map.comatose_root</code> once for each location.</p>
+<pre><code class="ruby">
+map.comatose_root 'pages'
+map.comatose_root 'content'
+</code></pre>
+<p>That&#8217;s nifty, but it doesn&#8217;t seem to be all that useful like that. Now, if you can map a URI root path to a sub-page of your page tree, then it becomes handy. Here&#8217;s how you&#8217;d do that:</p>
+<pre><code class="ruby">
+map.comatose_root 'help', :index=&gt;'help'
+map.comatose_root 'content', :index=&gt;'other-content'
+</code></pre>
+<h2 id="mount_point_configuration">Mount Point Configuration</h2>
+
+<p>You can configure how Comatose works per root path. Here are the options you can specify when calling <code>map.comatose_root</code>:</p>
+
+<ul>
+<li><code>:index</code> &#8211; The <code>full_path</code> of the page to mount to this path</li>
+
+<li><code>:layout</code> &#8211; The Rails layout to use when rendering this page</li>
+
+<li><code>:use_cache</code> &#8211; Setting to <code>false</code> disables caching for this mount point</li>
+</ul>
+
+<p>So, perhaps we have a page in our tree that is the parent node for all of our application help. And perhaps we want it styled differently than the other comatose pages. To do that, we&#8217;d just create a new Rails layout and tell Comatose to use that layout when rendering all help pages:</p>
+<pre><code class="ruby">
+map.comatose_root 'help', :index=&gt;'application-help', :layout=&gt;'help_layout'
+map.comatose_root '' 
+</code></pre>
+<p>When you don&#8217;t send in the <code>:index</code>, it will default to the root node. Also, Comatose will use a generic layout that&#8217;s been included in the plugin if you don&#8217;t specify a <code>:layout</code>.</p>
+
+<h2 id="named_comatose_routes">Named Comatose Routes</h2>
+
+<p>You can add named routes for Comatose mount points. You use <code>map.comatose_*</code> where &#8221;<code>*</code>&#8221; is anything other than &#8221;<code>root</code>&#8221;.</p>
+<pre><code class="ruby">
+map.comatose_help 'help', :index=&gt;'application-help', :layout=&gt;'help_layout'
+</code></pre>
+<p>This will create a <code>comatose_help</code> named routed that you can use elsewhere in your application. You can specify a child page of a named route like this:</p>
+<pre><code class="ruby">
+&lt;%= link_to &quot;Account Help&quot;, comatose_help_url(:page=&gt;'account') %&gt;
+</code></pre>
+<h2 id="page_content">Page Content</h2>
+
+<p>The page body gets processed, then filtered. Processing generates content based on dynamic tags (in Liquid, or ERB). Filtering takes the content and converts it into HTML.</p>
+
+<h2 id="text_filters">Text Filters</h2>
+
+<p>Text filters convert the text into HTML. Comatose comes pre-configured with support for using Textile, Markdown, Markdown+SmartyPants, or RDoc.</p>
+
+<p>If there is another text filter type you&#8217;d prefer beyond the default filters, you can write your own text filter as simply as putting this in your <code>environment.rb</code> file:</p>
+<pre><code class="ruby">
+# SMARTYPANTS
+TextFilters.define &quot;SmartyPants&quot; do |text|
+  require 'rubypants'
+
+  def render_text(text)
+    RubyPants.new(text).to_html
+  end
+end
+</code></pre>
+<p>If you try to <code>require</code> a library that isn&#8217;t installed, the <code>TextFilter</code> will not enable the filter. Therefore the filter drop-down on the edit page form will never show a filter that throws an exception when being loaded. For this to work properly, you have to <code>require</code> the library within the <code>TextFilters.define</code> block.</p>
+
+<h2 id="text_processing">Text Processing</h2>
+
+<p>The page body is also is run through Liquid or ERb, so you can get kinda fancy. Here are all the items you have access to in the processing context:</p>
+
+<ul>
+<li><code>page.title</code></li>
+
+<li><code>page.slug</code></li>
+
+<li><code>page.keywords</code></li>
+
+<li><code>page.has_keyword.</code><em><code>key</code></em> &#8211; where <em>key</em> is the keyword you&#8217;re testing for</li>
+
+<li><code>page.uri</code></li>
+
+<li><code>page.link</code> &#8211; returns a link to current page</li>
+
+<li><code>page.content</code> &#8211; processed and filtered page.body</li>
+
+<li><code>page.author</code></li>
+
+<li><code>page.updated_on</code></li>
+
+<li><code>page.created_on</code></li>
+
+<li><code>page.parent</code> &#8211; the parent page</li>
+
+<li><code>page.children</code> &#8211; array of child pages</li>
+
+<li><code>page.rchildren</code> &#8211; array of child pages in reverse order</li>
+
+<li><code>params.*</code> &#8211; <code>request</code> info and any passed params from the mounting point</li>
+
+<li><code>*</code> (Any params sent via <code>:locals</code> when inline)</li>
+</ul>
+
+<h2 id="inline_rendering">Inline Rendering</h2>
+
+<p>Comatose allows rendering of pages inline from your application view, it&#8217;s used just like rendering a partial:</p>
+<pre><code class="ruby">
+&lt;%= render :comatose=&gt;'about' %&gt;
+</code></pre>
+<p>Where &#8216;about&#8217; is the page path. By default it will return a failure message if you send it a path it can&#8217;t find. You can tell it not to by sending it the <code>:silent</code> flag, like this:</p>
+<pre><code class="ruby">
+&lt;%= render :comatose=&gt;'site/navigation', :silent=&gt;true %&gt;
+</code></pre>
+<h2 id="sending_parameters">Sending Parameters</h2>
+
+<p>Just like partial, inline rendering supports sending a <code>:locals</code> hash, allowing you to send parameters to the comatose page being rendered:</p>
+<pre><code class="ruby">
+&lt;%= render :comatose=&gt;'welcome', :locals=&gt;{ :username=&gt;'USERNAME' } %&gt;
+</code></pre>
+<p>The parameters are accessible from the page processor just like a page attribute. For example:</p>
+<pre><code class="text">h1. Welcome
+
+Hello, {{ username }}
+</code></pre>
+<h2 id="using_comatosedrops_to_access_application_data">Using ComatoseDrops to Access Application Data</h2>
+
+<p>Comatose is designed to be as safe as possible. By default it removes access of destructive ActiveRecord methods, and it doesn&#8217;t allow access into your application either. What does that mean? It means, by default, you can&#8217;t access Rails&#8217; helpers, or your application helpers from within the page&#8217;s content.</p>
+
+<p>However, there are times when it&#8217;s useful to provide a page access to application data. To do that you create a ComatoseDrop. If you&#8217;re familiar with Liquid&#8217;s Drop, then you&#8217;ll feel right at home. Here&#8217;s an example of simple ComatoseDrop:</p>
+<pre><code class="ruby">
+Comatose.define_drop 'news' do
+
+  def latest_headlines
+    News.find(:all, :conditions=&gt;['created_on &gt; ?', 2.weeks.ago]).collect {|n| n.title }
+  end
+
+end
+</code></pre>
+<p>Now, within a comatose page it can be referenced like this:</p>
+<pre><code class="text">h2. Latest Headlines
+
+{% for headline in news.latest_headlines %}
+* {{ headline }}
+{% endfor %}
+</code></pre>
+<p>Viola! That&#8217;s it.</p>
+
+<h1 id="comatose_administration">Comatose Administration</h1>
+
+<h2 id="configuration">Configuration</h2>
+
+<p>Before version 0.8, Comatose had few options that you could set via the <code>Comatose::Options</code> class. For everything else, it was expected that you would override methods on the <code>ComatoseController</code> and <code>ComatoseAdminController</code> classes. However, newer versions of Comatose support a more advanced configuration system that lets you configure just about everything in one place.</p>
+
+<p>You&#8217;ll configure Comatose in your <code>environment.rb</code> file. Here&#8217;s an example of the configuration block:</p>
+<pre><code class="ruby">
+Comatose.configure do |config|
+  # Sets the text in the Admin UI's title area
+  config.admin_title = &quot;Site Content&quot;
+  config.admin_sub_title = &quot;Content for the rest of us...&quot;
+end
+</code></pre>
+<p>See &#8220;Configuration Settings&#8221; (below) for a complete listing of the configuration options. Following are a few of the highlights.</p>
+
+<h2 id="administration_header">Administration Header</h2>
+
+<p>At the top of the comatose admin, it says &#8216;Comatose&#8217; with a sub-title of &#8216;The Micro CMS&#8217;. You can change these values without having to do a complete re-skin by defining these settings:</p>
+<pre><code class="ruby">
+config.admin_title = &quot;My App's CMS&quot;
+config.admin_sub_title = &quot;Because size does matter...&quot;
+</code></pre>
+<h2 id="content_types">Content Types</h2>
+
+<p>You can tell Comatose what content-type to use. By default, it&#8217;s set to use &#8216;utf-8&#8217;. This should be fine for most uses, but if you are developing an application in a different charset, you can set it like this:</p>
+<pre><code class="ruby">
+config.content_type = 'iso-8859-1'
+</code></pre>
+<h2 id="page_tree_expansion">Page Tree Expansion</h2>
+
+<p>You can also set the default level of expansion on the page tree like this:</p>
+<pre><code class="ruby">
+config.default_tree_level = 3
+</code></pre>
+<p>By default, it&#8217;s set to 2 &#8211; which shows the first two levels of pages.</p>
+
+<h2 id="blockable_settings">Blockable Settings</h2>
+
+<p>Some configuration settings allow you to attach a block of code to them. You can use these for returning dynamic values.</p>
+
+<p>You can define modules to include in the <code>ComatoseController</code> by adding to the list of <code>config.includes</code>. You will have access to the module&#8217;s code from within the setting blocks and the layout.</p>
+
+<p>Use <code>config.admin_includes</code> for the <code>ComatoseAdminController</code>.</p>
+
+<p>If you need access to certain helpers in the layout(s) Comatose uses, you can add to <code>config.helpers</code> or <code>config.admin_helpers</code>.</p>
+
+<p><strong>Note:</strong> These do not add methods, or tags, to a page&#8217;s content. Just to the layout.</p>
+
+<h2 id="authentication">Authentication</h2>
+
+<p>You probably don&#8217;t want just anybody to add, edit, or delete your comatose pages (Aw CRUD!). The <code>ComatoseAdminController</code> calls an <code>#authorize</code> method for every action as a <code>before_filter</code>. That <code>#authorize</code> method then looks for the <code>config.admin_authorization</code> block and executes it.</p>
+
+<p>So by defining the <code>config.admin_authorization</code> setting you can lock down access to the comatose admin.</p>
+<pre><code class="ruby">
+Comatose.configure do |config|
+
+  # Includes AuthenticationSystem in the ComatoseAdminController
+  config.admin_includes &lt;&lt; :authenticated_system
+
+  # Calls :login_required as a before_filter
+  config.admin_authorization = :login_required
+
+end
+</code></pre>
+<h2 id="setting_the_author">Setting the Author</h2>
+
+<p>Without modification, Comatose will set the page <code>author</code> as the <code>REMOTE_ADDR</code> sent by the browser &#8211; usually an IP address. If you want it to be something else, it&#8217;s as simple as defining the <code>config.admin_get_author</code> setting. If you&#8217;ve implemented authentication, it could look something like this:</p>
+<pre><code class="ruby">
+Comatose.configure do |config|
+
+  # Includes AuthenticationSystem in the ComatoseAdminController
+  config.admin_includes &lt;&lt; :authenticated_system
+
+  # Returns the author name (login, in this case) for the current user
+  config.admin_get_author do
+    current_user.login
+  end
+end
+</code></pre>
+<h2 id="customizing_the_administration_views">Customizing The Administration Views</h2>
+
+<p>Comatose comes out-of-the-box with a serviceable administration UI. But if you want to modify it so that it will match your application&#8217;s look-n-feel, it&#8217;s easy to accomplish because there&#8217;s a rake task available to help you get started.</p>
+
+<pre><code>$ rake comatose:admin:customize</code></pre>
+
+<p>When you run the task, it will copy the views and layouts it uses into your application folders (<code>app/views/comatose_admin</code> and <code>app/views/layouts/comatose_admin.rhtml</code>) folder, giving you total control over how it looks and behaves.</p>
+
+<p>Following is a list of all the files it will copy into your application folder structure:</p>
+
+<pre><code>app/
+  views/
+    comatose_admin/           &lt;- Admin views
+      _form.rhtml
+      _page_list_item.rhtml
+      edit.rhtml
+      index.rhtml
+      new.rhtml
+    layouts/
+      comatose_admin.rhtml    &lt;- Admin UI layout
+public/
+  javascripts/
+    comatose_admin.js         &lt;- Admin UI javascript
+  stylesheets/
+    comatose_admin.css        &lt;- Admin UI css</code></pre>
+
+<h1 id="advanced_features">Advanced Features</h1>
+
+<h2 id="meta_fields">Meta Fields</h2>
+
+<p>You can hide some of the &#8216;meta&#8217; information fields in the <code>admin</code> if you&#8217;d like by adding the string names of the fields to hide in the configuration block:</p>
+<pre><code class="ruby">
+config.hidden_meta_fields &lt;&lt; 'keywords'
+</code></pre>
+<p>The supported meta fields that you can hide are:</p>
+
+<ul>
+<li>keywords</li>
+
+<li>parent &#8211; <strong>Note</strong>: A page can&#8217;t be moved without this</li>
+
+<li>filter</li>
+
+<li>preview</li>
+</ul>
+
+<h2 id="page_caching">Page Caching</h2>
+
+<p>Page caching is enabled, by default, for comatose pages. Pages will only expire when you edit/delete them from the comatose admin. To remove all cached pages use the &#8216;Clear Page Cache&#8217; command in the admin.</p>
+
+<p>You <em>can</em> override page caching per mount point by sending <code>:use_cache=&gt;&#39;false&#39;</code>. It can also be overridden globally by using the config setting:</p>
+<pre><code class="ruby">
+config.disable_caching = true
+</code></pre>
+<h2 id="fragment_caching">Fragment Caching</h2>
+
+<p>Versions 0.5+ support fragment caching of inline rendered content. You can instruct comatose not to use the fragment cache by sending <code>:use_cache=&gt;false</code> like this:</p>
+<pre><code class="ruby">
+&lt;%= render :comatose=&gt;'path', :use_cache=&gt;false %&gt;
+</code></pre>
+<p>Oh, and be sure to set <code>ActionController::Base.fragment_cache_store</code> in your <code>environment.rb</code> file:</p>
+<pre><code class="ruby">
+ActionController::Base.fragment_cache_store = :file_store, File.join(RAILS_ROOT, 'tmp', 'cache', 'fragments')
+</code></pre>
+<p><strong>Note</strong>: Caching will automatically be disabled if you send page parameters via the <code>:locals</code> hash.</p>
+
+<h2 id="data_migration">Data Migration</h2>
+
+<p>A lot of times you&#8217;ll create pages in development that you want to transfer to production without having to do the old copy-n-paste dance. To help accommodate this, comatose comes with two rake tasks just for this purpose.</p>
+
+<h3 id="page_export">Page Export</h3>
+
+<p>By running:</p>
+
+<pre><code>$ rake comatose:data:export</code></pre>
+
+<p>You will get a <code>db/comatose-pages.yml</code> file with all the pages in your active database.</p>
+
+<p>The <code>FROM</code> environment variable is the page path starting point. It will only export the pages from the page at path <code>ENV[FROM]</code> down. If you don&#8217;t specify <code>FROM</code>, it default to the homepage &#8221;.</p>
+
+<pre><code>$ rake comatose:data:export FROM=faq</code></pre>
+
+<p>You can specify the output file if you don&#8217;t want to use <code>db/comatose.yml</code> or you want to export multiple branches by defining the <code>TO_FILE</code> environment variable:</p>
+
+<pre><code>$ rake comatose:data:export TO_FILE=db/other-pages.yml</code></pre>
+
+<p>You can, of course, mix and match these:</p>
+
+<pre><code>$ rake comatose:data:export FROM=site-help TO_FILE=db/help-pages.yml</code></pre>
+
+<h3 id="page_import">Page Import</h3>
+
+<p>The import process is just like exporting&#8230;</p>
+
+<pre><code>$ rake comatose:data:import </code></pre>
+
+<p>This loads the pages from <code>db/comatose-pages.yml</code> into your active database.</p>
+
+<p>To import somewhere other than the page tree root, you can specify the <code>TO</code> environment variable:</p>
+
+<pre><code>$ rake comatose:data:import TO=faq</code></pre>
+
+<p>You can also specify a page.yml file other than the default by setting the <code>FROM_FILE</code> environment variable:</p>
+
+<pre><code>$ rake comatose:data:import TO=help FROM_FILE=db/help-pages.yml</code></pre>
+
+<p>Keep in mind that task loads <code>environment.rb</code>, so you&#8217;ll probably want to specify the <code>RAILS_ENV</code> like this:</p>
+
+<pre><code>$ RAILS_ENV=development rake comatose:data:export
+$ RAILS_ENV=production rake comatose:data:import</code></pre>
+
+<p>Or&#8230;</p>
+
+<pre><code>$ RAILS_ENV=development rake comatose:data:export FROM=help
+$ RAILS_ENV=production rake comatose:data:import TO=help</code></pre>
+
+<h2 id="multiuser__limited_view">Multi-User / Limited View</h2>
+
+<p>It&#8217;s possible to limit the view of a user to a certain sub-branch, or sub- branches, of the page hierarchy. You define the <code>config.admin_get_root_page</code> setting to return a <code>ComatosePage</code> object, or an <code>Array</code> of <code>ComatosePage</code>s.</p>
+
+<p>This example defines both the <code>config.admin_authorization</code> and the <code>config.admin_get_root_page</code> settings:</p>
+<pre><code class="ruby">
+Comatose.configure do |config|
+
+  # Includes AuthenticationSystem in the ComatoseAdminController
+  config.admin_includes &lt;&lt; :authenticated_system
+
+  # Calls :login_required as a before_filter
+  config.admin_authorization = :login_required
+  
+  # Returns different 'root paths'
+  config.admin_get_root_page do
+  
+    if current_user.role == 'XXXX' # This depends on your system
+      Comatose::Page.find_by_path( 'site/help' )
+      
+    elsif current_user.role == 'YYYY'
+      # Returns multiple 'roots'
+      [
+        Comatose::Page.find_by_path( 'site/help' ),
+        Comatose::Page.find_by_path( 'app/faq' )
+      ]
+      
+    else
+      Comatose::Page.root
+      
+    end
+  end
+
+end
+</code></pre>
+<h2 id="using_erb_instead_of_liquid">Using ERB Instead of Liquid</h2>
+
+<p>In your configuration block, set the following:</p>
+<pre><code class="ruby">
+config.default_processor = :erb
+</code></pre>
+<p>Now it will use ERB for text processing instead of Liquid. There are a few minor differences in the context to keep in mind. For example, instead of using <code>page.has_keyword.key</code>, you can use the more ruby-like <code>page.has_keyword? key</code>.</p>
+
+<h1 id="configuration_settings">Configuration Settings</h1>
+
+<h2 id="default_configuration">Default Configuration</h2>
+
+<p>Following is a configuration block with all of the supported settings and their defaults:</p>
+<pre><code class="ruby">
+Comatose.configure do |config|
+
+  config.admin_title          = 'Comatose'
+  config.admin_includes       = []
+  config.admin_helpers        = []
+  config.admin_sub_title      = 'The Micro CMS'
+  config.content_type         = 'utf-8'
+  config.default_filter       = 'Textile'
+  config.default_processor    = :liquid
+  config.default_tree_level   = 2
+  config.disable_caching      = false
+  config.hidden_meta_fields   = []
+  config.helpers              = []
+  config.includes             = []
+
+  # These are 'blockable' settings
+  config.authorization        = Proc.new { true }
+  config.admin_authorization  = Proc.new { true }
+  config.admin_get_author     = Proc.new { request.env['REMOTE_ADDR'] }
+  config.admin_get_root_page  = Proc.new { Comatose::Page.root }
+  config.after_setup          = Proc.new { true }
+
+end
+</code></pre>
+
+  </div>
+</div>
+        <br /><br />
+        <div id="post-content-ad">
+          <script type="text/javascript"><!--
+           google_ad_client = "pub-4148538552356376";
+           google_alternate_color = "FFFFFF";
+           google_ad_width = 468;
+           google_ad_height = 60;
+           google_ad_format = "468x60_as";
+           google_ad_type = "text_image";
+           google_ad_channel ="3834916953";
+           google_color_border = "CCCCCC";
+           google_color_bg = "FFFFFF";
+           google_color_link = "7F7F7F";
+           google_color_text = "000000";
+           google_color_url = "008000";
+          //--></script>
+          <script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js"></script>
+        </div>
+      </div>
+      <div class="footer">
+        <p><a href="http://github.com/darthapo/comatose">Comatose</a> is developed by <a href="http://mattmccray.com">M@ McCray</a> and is released under the MIT license. This site was generated with <a href="http://github.com/darthapo/stratus">Stratus</a>.</p>
+        <!-- <p>Copyright M@ McCray.</p> -->
+      </div>
+    </div>
+  </body>
+  <script src="http://www.google-analytics.com/urchin.js" type="text/javascript"></script>
+  <script type="text/javascript">
+  _uacct = "UA-632821-3";
+  urchinTracker();
+  </script>
+</html>

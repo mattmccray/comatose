@@ -1,0 +1,12 @@
+<meta name="layout" content="main">
+<div class="pages">
+<h2>Tutorials</h2>
+<dl>
+{% for page in pages %}
+{% if page.show_in_tuts %}
+    <dt><a href="{{ page | uri_rel }}">{{ page.title }}</a></dt>
+    <dd>{{ page.summary }}</dd>
+{% endif %}
+{% endfor %}
+</dl>
+</div>

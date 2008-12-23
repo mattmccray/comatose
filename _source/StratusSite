@@ -1,0 +1,25 @@
+# I'm a rake file, so you can put Rake tasks in here, if you like...
+
+namespace :new do
+
+  desc "Creates a new page"
+  task :page=>'system:setup' do
+    if Stratus.args.length == 0
+      puts "  You must specify a page title" 
+      exit(1)
+    end
+    Stratus.args = ['page', Stratus.args[0]]
+    Rake::Task['new:content'].execute 
+  end
+
+  desc "Creates a new blog post"
+  task :post=>'system:setup' do
+    if Stratus.args.length == 0
+      puts "  You must specify a post title" 
+      exit(1)
+    end
+    Stratus.args = ['post', Stratus.args[0]]
+    Rake::Task['new:content'].execute 
+  end
+  
+end

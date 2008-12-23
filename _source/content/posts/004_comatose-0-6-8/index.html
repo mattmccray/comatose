@@ -1,0 +1,35 @@
+<head>
+  <title>Comatose 0.6.8</title>
+  <meta name="publish-date" content="2006-07-27 00:00"/>
+  <meta name="tags" content="releases">
+</head>
+<summary>
+  <p>There's been a few more updates I thought I'd summarize...</p>
+</summary>
+<body>
+{% textile %}
+There's been a few more updates I thought I'd summarize:
+
+*version: 0.6.8*
+
+* @ComatoseController@ now references @plugin_layout_path@ correctly
+* HTML/CSS/JS cleanup on the administration view -- it now works with or without JavaScript
+
+*version: 0.6.7*
+
+* Removed @Comatose::Page.record_timestamps = false@ -- it was breaking the magic. Override the @record_timestamp@ methods instead
+* @AdminController@ was still referencing, in a few places, @ComatoseController@ for page cache expiration 
+
+*version: 0.6.6*
+
+* The cache expiration code is now on the @ComatoseAdminController@, as it should have been in the first place
+* Changed internal references from @root_paths@ or @cms_root@ to @mount_point@, since that's what I've started calling them... And it seems to make the most sense
+* Cleaned up the @class_options@ code
+* Added initial support for pre-caching pages (generating static HTML), there's not a UI element for it yet, however, nor does it really work right
+* Changes to content-type handling:
+** Removed @Comatose::Options.force_utf8@
+** Added support for @Comatose::Options.content_type = "utf-8"@ This will affect the HTTP headers, as well as the META tag in the admin views
+* Changed this log file to yaml format. And yes, there's a method to my madness... Wait for it.
+
+{% endtextile %}
+</body>

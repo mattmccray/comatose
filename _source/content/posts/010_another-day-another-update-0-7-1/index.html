@@ -1,0 +1,46 @@
+<head>
+  <title>Another Day, Another Update: 0.7.1</title>
+  <meta name="publish-date" content="2006-09-21 00:00"/>
+  <meta name="tags" content="releases">
+</head>
+<summary>
+{% textile %}
+As most of you will know, Comatose has been having a few problems co-existing with some kinds of plugins lately. The problems seem to be caused, at least in part, because the comatose controllers extend @ApplicationController@ and therefore @require@ the @application.rb@ before the rest of the plugins load.
+{% endtextile %}
+</summary>
+<body>
+{% textile %}
+As most of you will know, Comatose has been having a few problems co-existing with some kinds of plugins lately. The problems seem to be caused, at least in part, because the comatose controllers extend @ApplicationController@ and therefore @require@ the @application.rb@ before the rest of the plugins load.
+
+Plus, _some_ plugins seem to take issue with any previous plugins defining an Active Record model before they’re loaded—very picky stuff.
+
+To combat this, I’ve added a @DEFER_COMATOSE_LOAD@ flag (it's an ENVironment variable). 
+
+When the plugin initializes it will check the flag, if it's set to  @true@ it won’t load the controllers or the models. You’ll tell Comatose to load at the bottom of your @environment.rb@ file, which will load the controllers and models _after_ the rest of your app. 
+
+By default, the flag is set to @false@ for backward compatibility.
+
+h3. Test It Out!
+
+
+So if you've been having problems using Comatose with other plugins, or applications, please give this version a shot. 
+
+
+After you've re-installed the plugin, just open your @config/enviroment.rb@ and at the *top*, next to where the @RAILS_ENV@ is set, add this:
+
+    ENV['DEFER_COMATOSE_LOAD'] = 'true'
+
+Then, at the *bottom* of your @enviroment.rb@ add:
+
+    Comatose.load
+
+That's it! Now Comatose will be loaded after the rest of your application which _should_ make it work with most plugins and applications.
+
+p{color:maroon}. *Update:* "Sean":http://www.crazyorgenius.com/ recommended this much improved method of enabling "compatibility mode". Thanks!
+
+
+h4. DevBlog Update
+
+Oh, I've tweaked the "devblog feed":/atom.xml, so this should be the last time you get all those duplicates in NetNewsWire -- Hopefully. It's funny, I don't have that problem in NewsFire.
+
+{% endtextile %}</body>

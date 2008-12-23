@@ -1,0 +1,47 @@
+<head>
+  <title>Inline Rendering with ActionMailer</title>
+  <meta name="publish-date" content="2006-08-02 00:00"/>
+  <meta name="tags" content="tips n tricks"/>
+</head>
+<summary>
+{% markdown %}
+Notes from _David Vrensk_ on how to use Comatose's inline rendering with `ActionMailer`
+{% endmarkdown %}
+</summary>
+<body>
+{% markdown %}
+Notes from _David Vrensk_ on how to use Comatose's inline rendering with `ActionMailer`:
+
+> My app has to send out confirmation emails, and I use `ActionMailer` to do that.  I want the site owner to be able to update (part of) the email template, so I put that part in a Comatose page.  In the email template, I put
+> 
+>     <%% render :comatose => "email-text" %>
+> 
+> But this triggers the error
+> 
+>     ActionView::TemplateError (undefined method `read_fragment' for #<Notifier:0x23849e4>) on line #15 of
+>     app/views/notifier/order_confirmation.rhtml:
+>     ...
+>         #{RAILS_ROOT}/vendor/plugins/comatose/lib/support/inline_rendering.rb:30:in `render_cached_comatose_page'
+>         #{RAILS_ROOT}/vendor/plugins/comatose/lib/support/inline_rendering.rb:20:in `render_comatose'
+>         #{RAILS_ROOT}/vendor/plugins/comatose/lib/support/inline_rendering.rb:7:in `render'
+>         #{RAILS_ROOT}/app/views/notifier/order_confirmation.rhtml:15:in `_run_rhtml_order_confirmation'
+> 
+> (Notifier is my descendant from `ActionMailer::Base`.)  Apparently, `ActionMailer` tells `ActionView` that it is the calling controller.  That's duck typing for you.
+> 
+> I don't have a fix (don't know Rails or Comatose well enough yet), but I have a work-around if anyone is interested:
+> 
+> 1. Comatose only tries to call `#read_fragment` if it uses fragment caching.  So, turn of fragment caching for this call:
+> 
+>         <%% render :comatose => "email-text", :use_cache => false %>
+> 
+> 2. Comatose will now try to render as usual, passing the original request parameters to the Page.  But to do this, it has to pick up the params from the controller.  Again, the controller is unavailable, but this page doesn't need the params anyway, so I fake them by adding
+> 
+>     def params
+>       Hash.new
+>     end
+> 
+> to `Notifier`, my `ActionMailer::Base` descendant.  And now, all is good.  Hacky, but good.
+
+Thanks David!
+{% endmarkdown %}
+</body>

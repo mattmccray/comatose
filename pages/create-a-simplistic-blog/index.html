@@ -1,0 +1,174 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+    <title>Comatose :: Create A Simplistic Blog</title>
+    <script src="../../theme/scripts/code_highlighter.js"></script>
+    <script src="../../theme/scripts/code_syntax.js"></script>
+    <link href="../../theme/styles/main.css" rel="stylesheet" type="text/css" media="screen" />
+    <link href="../../theme/styles/code_syntax.css" rel="stylesheet" type="text/css" media="screen" />
+    <link href="posts/feed.xml" title="RSS Feed" rel="alternate" type="application/rss+xml" />
+    <script type="text/javascript" src="http://www.haloscan.com/load/comatose"></script>
+    
+  </head>
+  <body>
+    <div class="header-logo">
+      <div class="header-text">
+        <h1>Comatose</h1>
+        <div class="subtitle">
+          The Rails Micro CMS Plugin
+        </div>
+      </div>
+    </div>
+    <div class="sidebar">
+      <div class="navigation">
+        <ul>
+          <li><a href="../../index.html">Home</a></li>
+          <li><a href="../../posts/index.html">Devblog</a></li>
+          <li><a href="../../pages/getting-started/index.html">Getting Started</a></li>
+          <li><a href="../../pages/index.html">Tutorials</a></li>
+          <li><a href="http://github.com/darthapo/comatose/tree/master">@GitHub</a></li>
+          <li><a href="http://code.google.com/p/comatose-plugin/issues/entry">Report A Bug</a></li>
+        </ul>
+        
+        <div class="donation">
+        <form action="https://www.paypal.com/cgi-bin/webscr" method="post">
+        <input name="cmd" type="hidden" value="_s-xclick" />
+        <input name="submit" type="image" src="https://www.paypal.com/en_US/i/btn/x-click-but21.gif" border="0" alt="Make payments with PayPal - it's fast, free and secure!" />
+        <img src="https://www.paypal.com/en_US/i/scr/pixel.gif" border="0" height="1" alt="" width="1" />
+        <input name="encrypted" type="hidden" value="-----BEGIN PKCS7-----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-----END PKCS7-----" />
+        </form>
+        </div>
+        
+        <div class="recent-comments">
+          <h3>Recent Comments...</h3>
+          <script type="text/javascript" src="http://www.haloscan.com/members/recent/comatose/"> </script>
+        </div>
+
+        <p>&nbsp;</p>
+        
+        <div class="sidebar-ad">
+          <script type="text/javascript"><!--
+          google_ad_client = "pub-4148538552356376";
+          google_alternate_color = "FFFFFF";
+          google_ad_width = 120;
+          google_ad_height = 240;
+          google_ad_format = "120x240_as";
+          google_ad_type = "text_image";
+          google_ad_channel ="3834916953";
+          google_color_border = "CCCCCC";
+          google_color_bg = "FFFFFF";
+          google_color_link = "7F7F7F";
+          google_color_text = "000000";
+          google_color_url = "008000";
+          //--></script>
+          <script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+          </script>
+        </div>
+      </div>
+    </div>
+    <div class="page-container">
+      <div class="contents">
+        <div id="header-ad">
+          <script type="text/javascript"><!--
+          google_ad_client = "pub-4148538552356376";
+          google_alternate_color = "FFFFFF";
+          google_ad_width = 120;
+          google_ad_height = 90;
+          google_ad_format = "120x90_0ads_al";
+          google_ad_channel ="3834916953";
+          google_color_border = "CCCCCC";
+          google_color_bg = "FFFFFF";
+          google_color_link = "7F7F7F";
+          google_color_text = "000000";
+          google_color_url = "008000";
+          //--></script>
+          <script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+          </script>
+        </div>
+        
+<div class="page">
+  <h2>Create A Simplistic Blog</h2>
+  <div class="body">
+    
+<p><strong>Updated to reflect changes as of v0.8.1</strong></p>
+
+<p>Example Page structure:</p>
+
+<pre><code>- Home Page
+  - Blog
+    - First Post
+    - Second Post
+    - Latest Post</code></pre>
+
+<p>Page content for &#8220;Blog&#8221; page:</p>
+
+<h2 id="adding_comments_via_haloscan">Adding Comments Via HaloScan</h2>
+
+<p>You can create a ComatoseDrop to add <a href="http://www.haloscan.com/">Haloscan</a> comment support (this would probably go in your <code>environment.rb</code>, or a separate file required by your <code>environment.rb</code>):</p>
+
+<pre><code># This defines a Drop for use with the Liquid processor
+# And an object you can call from the ERB processor
+
+Comatose.define_drop &quot;haloscan&quot; do 
+
+  # Your HaloScan USERNAME here:
+  @halo_user = &#39;user_x&#39;
+
+  def script
+    %Q|&lt;notextile&gt;&lt;script src=&quot;http://www.haloscan.com/load/#{ @halo_user }&quot; type=&quot;text/javascript&quot;&gt; &lt;/script&gt;&lt;/notextile&gt;|
+  end
+
+  def trackbacks(slug=nil)
+    # Look for the varable &#39;child.slug&#39; in the context, unless the slug has been passed in
+    slug = @context[&#39;child&#39;][&#39;slug&#39;] if @context.has_key? &#39;child&#39; and slug.nil?
+    # If it&#39;s not found, use the &#39;page.slug&#39;
+    slug = @context[&#39;page&#39;][&#39;slug&#39;] unless slug
+    %Q|&lt;notextile&gt;&lt;a href=&quot;javascript:HaloScanTB(&#39;#{slug}&#39;);&quot; target=&quot;_self&quot;&gt;&lt;script type=&quot;text/javascript&quot;&gt;postCountTB(&#39;#{slug}&#39;); &lt;/script&gt;&lt;/a&gt;&lt;/notextile&gt;|               
+  end
+
+  def comments(slug=nil)
+    slug = @context[&#39;child&#39;][&#39;slug&#39;] if @context.has_key? &#39;child&#39; and slug.nil?
+    slug = @context[&#39;page&#39;][&#39;slug&#39;] unless slug
+    puts &quot;Comments ~&gt; Slug = #{slug}&quot;
+    %Q|&lt;notextile&gt;&lt;a href=&quot;javascript:HaloScan(&#39;#{slug}&#39;);&quot; target=&quot;_self&quot;&gt;&lt;script type=&quot;text/javascript&quot;&gt;postCount(&#39;#{slug}&#39;);&lt;/script&gt;&lt;/a&gt;&lt;/notextile&gt;|
+  end
+
+end</code></pre>
+
+<p>Then, on your Blog listing page:</p>
+
+
+  </div>
+</div>
+        <br /><br />
+        <div id="post-content-ad">
+          <script type="text/javascript"><!--
+           google_ad_client = "pub-4148538552356376";
+           google_alternate_color = "FFFFFF";
+           google_ad_width = 468;
+           google_ad_height = 60;
+           google_ad_format = "468x60_as";
+           google_ad_type = "text_image";
+           google_ad_channel ="3834916953";
+           google_color_border = "CCCCCC";
+           google_color_bg = "FFFFFF";
+           google_color_link = "7F7F7F";
+           google_color_text = "000000";
+           google_color_url = "008000";
+          //--></script>
+          <script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js"></script>
+        </div>
+      </div>
+      <div class="footer">
+        <p><a href="http://github.com/darthapo/comatose">Comatose</a> is developed by <a href="http://mattmccray.com">M@ McCray</a> and is released under the MIT license. This site was generated with <a href="http://github.com/darthapo/stratus">Stratus</a>.</p>
+        <!-- <p>Copyright M@ McCray.</p> -->
+      </div>
+    </div>
+  </body>
+  <script src="http://www.google-analytics.com/urchin.js" type="text/javascript"></script>
+  <script type="text/javascript">
+  _uacct = "UA-632821-3";
+  urchinTracker();
+  </script>
+</html>

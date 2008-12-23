@@ -1,0 +1,56 @@
+<head>
+  <title>Using Comatose With rForum</title>
+  <meta name="publish-date" content="2006-08-31 10:00"/>
+  <meta name="tags" content="tips n tricks">
+</head>
+<summary>
+  <p>Several people have been reporting issues with <a href="http://rubyforge.org/projects/rforum">rForum</a>. The error messages can be a little deceiving, leading you to believe the error is in <code>navbar.rb</code> or a @Localization@ class.</p>
+</summary>
+<body>
+  <p>Several people have been reporting issues with <a href="http://rubyforge.org/projects/rforum">rForum</a>. The error messages can be a little deceiving, leading you to believe the error is in <code>navbar.rb</code> or a @Localization@ class.</p>
+
+  <p>Actually, the problem has to do with Rails&#8217; loading sequence. Plugin code is loaded before the application code. In some applications this can lead to problems.</p>
+
+  <p>So, you have two options for fixing the rForum problem.</p>
+
+  <p><strong>Option One</strong></p>
+
+  <p>Remembering that plugins are loaded alphabetically, we create a simple plugin that will load before Comatose that includes the appropriate rForum startup code.</p>
+
+  <p>In the console, enter:</p>
+
+  <pre><code>./script/generate plugin 01_app_loader
+  </code></pre>
+
+  <p>It should spit out:</p>
+
+  <pre><code>  create  vendor/plugins/01_app_loader/lib
+    create  vendor/plugins/01_app_loader/tasks
+    create  vendor/plugins/01_app_loader/test
+    create  vendor/plugins/01_app_loader/README
+    create  vendor/plugins/01_app_loader/Rakefile
+    create  vendor/plugins/01_app_loader/init.rb
+    create  vendor/plugins/01_app_loader/install.rb
+    create  vendor/plugins/01_app_loader/lib/01_app_loader.rb
+    create  vendor/plugins/01_app_loader/tasks/01_app_loader_tasks.rake
+    create  vendor/plugins/01_app_loader/test/01_app_loader_test.rb
+  </code></pre>
+
+  <p>Then you open the <code>vendor/plugins/01_app_loader/init.rb</code> file and paste this into it:</p>
+
+  <pre><code>require RAILS_ROOT + '/config/app'
+  </code></pre>
+
+  <p>That&#8217;s it! It should work now, as you&#8217;d expect.</p>
+
+  <p><strong>Option Two</strong></p>
+
+  <p>Update the <code>vendor/plugins/comatose/init.rb</code> and add the same <code>require RAILS_ROOT + '/config/app'</code> to the very top of the file.</p>
+
+  <p>I don&#8217;t really recommend this way, however. You&#8217;d have to redo it if you updated Comatose.</p>
+
+  <p><strong>Notes</strong></p>
+
+  <p>If you&#8217;ve already installed Comatose, you&#8217;ll need to uninstall it before you create the new plugin. After you&#8217;ve pasted the startup code, you can re-install Comatose, generate the migration and go to town!</p>
+
+</body>

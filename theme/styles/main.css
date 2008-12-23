@@ -1,0 +1,196 @@
+HTML {
+  background: transparent url(../images/html-bg.png) top left repeat-y;
+  margin: 0px;
+  padding: 0px;
+}
+
+BODY {
+  background: transparent url(../images/body-bg.png) top left repeat-x;
+  font-family: "lucida grande", tahoma, sans-serif;
+  font-size: 14px;
+  margin: 0px;
+  padding: 0px;
+  min-height: 100px;
+  overflow-y: scroll;
+}
+
+.header-logo {
+  background: url(../images/header-logo.png) top left no-repeat;
+  width: 250px;
+  height: 75px;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+}
+
+.header-text {
+  visibility: hidden;
+  overflow: hidden;
+}
+
+.sidebar {
+  position: absolute;
+  top: 60px;
+  left: 20px;
+  width: 200px;
+}
+
+.sidebar LI A {
+  padding: 3px 0px;
+  color: black;
+/*  text-decoration: none;*/
+  display: block;
+}
+.sidebar LI A:hover {
+/*  text-decoration: underline;*/
+  color: #9E0000;
+}
+
+.sidebar LI:hover {
+  color: #9E0000;
+}
+
+.recent-comments {
+  overflow-x: hidden;
+  margin-right: 10px;
+}
+  .recent-comments h3 {
+    font-size: 100%;
+    padding-bottom: 0px;
+    padding-left: 15px;
+  }
+  .recent-comments UL {
+    margin: 0px;
+    padding: 0px;
+    padding-left: 15px;
+    list-style: none;
+  }
+  .recent-comments LI {
+    font-size: 85%;
+    margin: 0px;
+    padding: 0px;
+    padding-bottom: 10px;
+  }
+    .recent-comments LI A {
+      text-decoration: none;
+    }
+    .recent-comments .hsrname {
+      font-weight: bold;
+    }
+  .recent-comments .haloscan-recent P {
+    text-align: center;
+  }
+    .recent-comments .haloscan-recent P A {
+      font-weight: normal !important;
+      color: #999;
+      font-size: 80%;
+    }
+.sidebar-ad {
+  padding-left: 35px;
+  padding-bottom: 20px;
+}
+
+.donation {
+  padding-top: 20px;
+  padding-bottom: 15px;
+  text-align: center;
+}
+  .donation form {
+    display: inline;
+  }
+
+#header-ad {
+  float: right;
+  margin-left: 10px;
+  margin-bottom: 10px;
+}
+
+.page-container {
+  position: absolute;
+  top: 50px;
+  left: 260px;
+  right: 50px;
+}
+.page-container A {
+  color: #9E0000;
+}
+.page-container A:hover {
+  color: red;
+}
+.page-container PRE {
+  overflow-x: auto;
+}
+
+.pager {
+  position: absolute;
+  top: -35px;
+  left: 10px;
+  right: 10px;
+  padding: 5px;
+  background: #FFF;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  font-size: 80%;
+  border: 1px solid #E38787;
+  -webkit-box-shadow: 0px 0px 10px #FDBFC0;
+  -moz-box-shadow: 0px 0px 10px #FDBFC0;
+}
+
+.pager A {
+  color: black;
+  text-decoration: none;
+}
+
+.pager A:hover {
+  text-decoration: underline;
+}
+
+.pager .prev {
+  display: inline-block;
+  width: 44%;
+  text-align: right;
+}
+
+.pager .home {
+  display: inline-block;
+  width: 10%;
+  text-align: center;
+}
+
+.pager .next {
+  width: 44%;
+  text-align: left;
+  display: inline-block;
+}
+
+.post h2 {
+  padding-bottom: 0px;
+  margin-bottom: 0px;
+}
+
+.posts UL {
+  list-style: none;
+  margin: 0px;
+  padding: 0px;
+}
+  .posts LI {
+    padding-bottom: 20px;
+  }
+  .posts .summary {
+    font-size: 90%;
+    color: #333;
+  }
+
+.meta {
+  color: #777;
+  font-size: 80%;
+}
+
+.footer {
+  padding: 20px 0px;
+  font-size: 85%;
+  color: #555;
+}
+.footer A {
+  color: #555;
+}

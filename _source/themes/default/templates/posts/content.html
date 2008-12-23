@@ -1,0 +1,21 @@
+<meta name="layout" content="main"/>
+<div class="pager">
+{% if this.next %}
+  <a class="prev" href="{{ this.next | uri }}">&laquo; {{ this.next.title }}</a>
+{% else %}
+  <a class="prev" href="#"></a>
+{% endif %}
+<a class="home" href="{{ posts | uri }}">&#9679;</a>
+{% if this.prev %}
+  <a class="next" href="{{ this.prev | uri }}">{{ this.prev.title }} &raquo;</a>
+{% endif %}
+</div>
+<div class="post">
+  <h2>{{ this.title }}</h2>
+  <div class="meta">
+    Published on {{ this.publish_date | short_date }}. {{ this.body | number_of_words }} words. <span class="comments" title="Comments"><a href="javascript:HaloScan('{{ this.slug }}');" target="_self"><script type="text/javascript">postCount('{{ this.slug }}');</script></a></span>
+  </div>
+  <div class="body">
+    {{ this.body }}
+  </div>
+</div>

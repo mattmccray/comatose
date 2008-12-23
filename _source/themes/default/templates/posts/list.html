@@ -1,0 +1,15 @@
+<meta name="layout" content="main">
+<h2>Devblog Archive</h2>
+<div class="posts">
+  <ul>
+{% for post in posts %}
+  <li class="post">
+    <a href="{{ post | uri_rel}}">{{ post.title }}</a>
+    <div class="meta">Published on <span>{{ post.publish_date | short_date }}</span>. <span class="comments" title="Comments"><a href="javascript:HaloScan('{{ post.slug }}');" target="_self"><script type="text/javascript">postCount('{{ post.slug }}');</script></a></span></div>
+    <div class="summary">
+      {{ post.summary }}
+    </div>
+  </li>
+{% endfor %}
+  </ul>
+</div>
