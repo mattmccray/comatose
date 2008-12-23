@@ -186,6 +186,34 @@ BODY {
   font-size: 80%;
 }
 
+.overview {
+  padding-bottom: 20px;
+  border-bottom: 1px dashed #E38787;
+}
+
+.home {
+  padding: 20px 0px;
+  border-bottom: 1px dashed #E38787;
+}
+
+.archive {
+  padding-top: 20px;
+}
+  .archive .post h4 {
+    padding-bottom: 0px;
+    margin-bottom: 0px;
+  }
+  .archive .post .summary {
+    font-size: 80%;
+    color: #999;
+    margin-top: 0px;
+    padding-top: 0px;
+  }
+  .archive .post .summary P {
+    padding-top: 0px;
+    margin-top: 0px;
+  }
+
 .footer {
   padding: 20px 0px;
   font-size: 85%;

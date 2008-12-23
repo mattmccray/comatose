@@ -2,7 +2,7 @@
 <html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
-    <title>Comatose :: Welcome!</title>
+    <title>Comatose :: Development Site</title>
     <script src="./theme/scripts/code_highlighter.js"></script>
     <script src="./theme/scripts/code_syntax.js"></script>
     <link href="./theme/styles/main.css" rel="stylesheet" type="text/css" media="screen" />
@@ -87,22 +87,79 @@
           </script>
         </div>
         
-<div class="page">
-  <h2>Welcome!</h2>
-  <div class="body">
-    
-  <h1>Blog Entries:</h1>
-  <div class="home">
 
+
+  <div class="overview">
+    <h1>Comatose</h1>
+    <p>... is a micro-CMS Rails plugin. Version 0.8.1 is for Rails 1, version 2 (currently in beta) is for Rails 2.</p>
+  </div>
+
+  <div class="home
+  ">
   
-      <div class="post summary">
+      <div class="post">
         <h2>Comatose v2 Beta</h2>
-        <div class="meta">Published on 10/30/2008.</div>
+        <div class="meta">
+          Published on 10/30/2008. 443 words. <span class="comments" title="Comments"><a href="javascript:HaloScan('comatose-v2-beta');" target="_self"><script type="text/javascript">postCount('comatose-v2-beta');</script></a></span>
+        </div>
         <div class="body">
           
 <p>Wow. It&#8217;s been a really long time since I&#8217;ve updated the dev site, eh? Well, Comatose isn&#8217;t dead. It&#8217;s just been sleeping. Deeply. :-)</p>
 
-          <p><a href="./posts/comatose-v2-beta/index.html">Read more...</a></p>
+<p>Seriously though, a while ago I quietly started working on <a href="http://github.com/darthapo/comatose/tree/master">Comatose 2</a>. It&#8217;s Rails 2 compatible. In fact, there is a beta version on <a href="http://www.github.com">GitHub</a> right now. <a href="http://github.com/darthapo/comatose/tree/master">Check it out</a>.</p>
+
+<h4 id="from_the_changelog">From the Changelog</h4>
+
+<ul>
+<li>
+<p>version: 2.0.3 (beta) - Moving from alpha to beta! - <a href="http://github.com/staugaard">staugaard</a>: Added import and export of pages in admin controller</p>
+</li>
+
+<li>
+<p>version: 2.0.2 (alpha) - <a href="http://github.com/staugaard">staugaard</a>: Added &#8220;unloadable&#8221; to <code>ComatoseController</code> (problems with <code>ActsAsAuthenticated</code>-integration similar to <a href="http://tinyurl.com/6caz5r">http://tinyurl.com/6caz5r</a>) - <a href="http://github.com/jcnetdev">jcnetdev</a>: Tweaking gemspec</p>
+</li>
+
+<li>
+<p>version: 2.0.1 (alpha) - Merged changes from andreas&#8230; - <a href="http://github.com/andreas">andreas</a>: Fixed <code>comatose:admin:customize</code> rake task (seems <code>plugin_path</code> was wrong, and made use of <code>mkdir_p</code> to avoid &#8220;File exists&#8221;-errors.) - <a href="http://github.com/andreas">andreas</a>: Added &#8220;unloadable&#8221; to <code>ComatoseAdminController</code> (problems with <code>ActsAsAuthenticated</code>-integration similar to <a href="http://tinyurl.com/6caz5r">http://tinyurl.com/6caz5r</a>)</p>
+</li>
+
+<li>
+<p>version: 2.0 (uber alpha) - Removed controllers, models, and helpers from <code>Comatose</code> module. It was causing odd issues - Initial support for Rails 2.1(ish) - Fixed up slug generation to remove leading and trailing whitespace - Moved to github - Changed all the <code>.rhtml</code> files to <code>.html.erb</code> - Adding support for use as a gem plugin</p>
+</li>
+</ul>
+
+<h4 id="some_thanks_yous">Some Thanks Yous</h4>
+
+<p>You may notice from the Changelog that there have been some patches from other githubbers&#8230; Thanks <a href="http://github.com/andreas">andreas</a>, <a href="http://github.com/jcnetdev">jcnetdev</a>, and <a href="http://github.com/staugaard">staugaard</a>! Hopefully this will be the start of a trend. :-)</p>
+
+<p>Also, thank you very much to those of you who have donated monetarily to Comatose! It&#8217;s very much appreciated, and it&#8217;s encouraged me to get back and update Comatose.</p>
+
+<p>Oh, as long as I&#8217;m on the topic of &#8216;Thanks yous&#8217;. I&#8217;m not sure if I ever mentioned this, but the fun &#8216;Comatose&#8217; logo at the top of the page here was contributed by <a href="http://www.desbytree.com">Desbytree</a>. Thanks!</p>
+
+<h4 id="coming_upideas">Coming Up/Ideas</h4>
+
+<p>I have a few ideas for where I&#8217;d like to take Comatose next, here&#8217;s a high-level overview.</p>
+
+<ul>
+<li>Improvements in the <code>ComatoseAdminController</code> to reduce number of DB calls for building the page tree.</li>
+
+<li>Remove dependency on <code>acts_as_list</code> and <code>acts_as_tree</code>.</li>
+
+<li>A script to automatically create rails test harnesses.</li>
+
+<li>UI refresh (nothing major, just some cleanup).</li>
+
+<li>RESTful goodness.</li>
+
+<li>Support XML/JSON responses from <code>ComatoseController</code> and <code>ComatoseAdminController</code>.</li>
+
+<li>Support for static rendering (for <em>generating</em> sites like this blog).</li>
+</ul>
+
+<p>If you find any bugs, feel free to <a href="http://code.google.com/p/comatose-plugin/issues/entry">report them</a> &#8211; or &#8211; just fork your own version of Comatose and start hacking!</p>
+
+<p>Have anything to add? You can email me at <code>matt at elucidata dot net</code>.</p>
+
         </div>
       </div>
   
@@ -113,46 +170,41 @@
     <h3>Recently on <strike>Lost</strike> the DevBlog:</h3>
 
     
-        <div class="post summary">
+        <div class="post">
           <h4>
             <a href="./posts/version-0-8-1-released/index.html">Version 0.8.1 Released</a>
             <span class="meta">06/29/2007</span>
           </h4>
+          <div class="summary">
+  <p>I know it&#8217;s been a long time coming, but here it is: <a href="http://mattmccray.com/svn/rails/plugins/comatose">Comatose 0.8.1</a>!</p>
+</div>
         </div>
     
-        <div class="post summary">
+        <div class="post">
           <h4>
             <a href="./posts/comatose-0-8/index.html">Comatose 0.8</a>
             <span class="meta">05/07/2007</span>
           </h4>
+          <div class="summary">
+<p>Comatose 0.8 has been <a href="http://mattmccray.com/archive/2007/01/30/Comatose_08_Released">out in the wild</a> for a few months now. It&#8217;s using a new approach of including ruby modules to extend the controller&#8217;s functionality.</p>
+</div>
         </div>
     
-        <div class="post summary">
+        <div class="post">
           <h4>
             <a href="./posts/devsite-updated/index.html">DevSite Updated</a>
             <span class="meta">05/06/2007</span>
           </h4>
-        </div>
-    
-        <div class="post summary">
-          <h4>
-            <a href="./posts/another-day-another-update-0-7-1/index.html">Another Day, Another Update: 0.7.1</a>
-            <span class="meta">09/21/2006</span>
-          </h4>
-        </div>
-    
-        <div class="post summary">
-          <h4>
-            <a href="./posts/comatose-0-7-released/index.html">Comatose 0.7 Released!</a>
-            <span class="meta">09/20/2006</span>
-          </h4>
-        </div>
-    
-
-  </div>
-
-  </div>
+          <div class="summary">
+<p>There have been a noted lack of updates around here lately&#8230; Sorry about that. It&#8217;s partially because I&#8217;ve been pretty busy, and partially because the tool I was using to maintain this site was rather cumbersome.</p>
 </div>
+        </div>
+    
+
+  </div>
+
+
+
         <br /><br />
         <div id="post-content-ad">
           <script type="text/javascript"><!--
