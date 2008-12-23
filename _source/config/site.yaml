@@ -3,7 +3,7 @@ site:
   subtitle: "The Rails Micro CMS Plugin"
   copyright: "Copyright M@ McCray."
   homepage: "pages/home"
-  base_url: "http://comatose.rubyforge.org"
+  base_url: "http://darthapo.github.com/comatose"
   theme: "default"
   author:
     name: "M@ McCray"
