@@ -1,3 +1,6 @@
+THIS BRANCH OF COMATOSE MAY WELL BE BROKEN AT THE MOMENT
+This is an experiment to see if I can get it working with RAILS 3 - anyone want to help or have advice, please let me know.
+
 # Comatose
 
 * Version: 2.0.5 (beta)
