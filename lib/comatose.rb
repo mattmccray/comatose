@@ -27,7 +27,9 @@ require 'comatose/version'
 require 'support/inline_rendering'
 require 'support/route_mapper'
 
-require 'dispatcher' unless defined?(::Dispatcher)
-::Dispatcher.to_prepare :comatose do
+#require 'dispatcher' unless defined?(::Dispatcher)
+#ActionController::Dispatcher.to_prepare is deprecated. " <<
+#          "Please use config.to_prepare instead
+ActionDispatch::Callbacks.to_prepare :comatose do
     Comatose.config.after_setup.call
 end

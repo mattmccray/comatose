@@ -63,8 +63,8 @@ protected
     if params[:page].is_a? Array
       page_name = params[:page].join("/")
     #in rails 1.x, params[:page] comes back as ActionController::Routing::PathSegment::Result
-    elsif params[:page].is_a? ActionController::Routing::PathSegment::Result
-      page_name = params[:page].to_s
+    #elsif params[:page].is_a? ActionController::Routing::PathSegment::Result
+    #  page_name = params[:page].to_s
     else
       logger.debug "get_page_path - params[:page] is an unrecognized type, may cause problems: #{params[:page].class}"
       page_name = params[:page].to_s
