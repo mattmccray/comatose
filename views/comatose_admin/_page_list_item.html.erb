@@ -41,7 +41,7 @@ collapse_children = (level >= Comatose.config.default_tree_level)
     <tr>
       <td class="commands">
         Updated <span title="Created on <%= page.created_on %>"><%= time_ago_in_words page.updated_on, true %> ago</span><%= " by #{page.author}" unless page.author.nil? or page.author.empty? %>,
-        <%= links.join(', ') %>.
+        <%= links.join(', ').html_safe %>.
       </td>
     </tr>
   </table>

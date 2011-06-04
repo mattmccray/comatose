@@ -12,14 +12,14 @@
     <td class="label"><label for="page_slug">Slug</label></td>
     <td class="field"><%= f.text_field :slug, :tabindex=>6, :maxlength=>255, :size=>50, :disabled=>@root_pages.include?(@page) %></td>
   </tr>
-
+</div>
 <% if show_field? 'keywords' %>
   <tr id="keywords_row" class="meta-info">
     <td class="label"><label for="page_keywords">Keywords</label></td>
     <td class="field"><%= f.text_field :keywords, :tabindex=>7, :maxlength=>1000, :size=>50 %></td>
   </tr>
 <% end %>
-
+</div>
 <% if show_field? 'parent' %>
   <tr id="parent_row" class="meta-info">
     <td class="label"><label for="page_parent">Parent</label></td>

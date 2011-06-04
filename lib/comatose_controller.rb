@@ -108,7 +108,7 @@ protected
     response.headers["Content-Type"] = "text/html; charset=#{Comatose.config.content_type}" unless Comatose.config.content_type.nil? or response.headers['Status'] == '404 Not Found'
   end
 
-  COMATOSE_VIEW_PATH = File.join(RAILS_ROOT, 'vendor', 'plugins', 'comatose', 'views')
+  COMATOSE_VIEW_PATH = File.join(Rails.root.to_s, 'vendor', 'plugins', 'comatose', 'views')
   ActionController::Base.append_view_path(COMATOSE_VIEW_PATH) unless ActionController::Base.view_paths.include?(COMATOSE_VIEW_PATH)
 
   # Include any, well, includes...

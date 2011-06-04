@@ -4,7 +4,7 @@ module Comatose
   # DEPRECATED
   # Loads extensions from RAILS_ROOT/lib/comatose/*.rb
   def self.load_extensions
-    Dir[File.join(RAILS_ROOT, 'lib', 'comatose', '*.rb')].each do |path|
+    Dir[File.join(Rails.root.to_s, 'lib', 'comatose', '*.rb')].each do |path|
       require "comatose/#{File.basename(path)}"
     end
   end

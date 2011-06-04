@@ -285,7 +285,7 @@ protected
           expire_page("#{path_info[:root]}/index")
         end
         begin # I'm not sure this matters too much -- but it keeps things clean
-          dir_path = File.join(RAILS_ROOT, 'public', page.uri[1..-1])
+          dir_path = File.join(Rails.root.to_s, 'public', page.uri[1..-1])
           Dir.delete( dir_path ) if FileTest.directory?( dir_path ) and !page.parent.nil?
         rescue
           # It probably isn't empty -- just as well we leave it be
@@ -306,7 +306,7 @@ protected
   
     def configure_template_root
       if self.runtime_mode == :unknown
-        if FileTest.exist? File.join(RAILS_ROOT, 'public', 'javascripts', 'comatose_admin.js')
+        if FileTest.exist? File.join(Rails.root.to_s, 'public', 'javascripts', 'comatose_admin.js')
           self.runtime_mode = :application
         else
           self.runtime_mode = :plugin
@@ -381,8 +381,12 @@ protected
 
   def hash_to_page_tree(hsh, page)
     child_ary = hsh.delete 'children'
+logger.debug hsh.to_yaml
+logger.debug "OOOOOOOOOOOOOOOOOOO"
     page.update_attributes(hsh)
+logger.debug "AAAAAAAAAAAAAAAAAAA"
     page.save
+logger.debug "BBBBBBBBBBBBBBBBBBB"
     child_ary.each do |child_hsh|
       if child_pg = page.children.find_by_slug( child_hsh['slug'] )
         hash_to_page_tree( child_hsh, child_pg )

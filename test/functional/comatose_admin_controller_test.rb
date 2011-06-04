@@ -1,3 +1,4 @@
+puts  File.dirname(__FILE__) + '/../../test_helper'
 require File.dirname(__FILE__) + '/../test_helper'
 require 'comatose_admin_controller'
 require 'comatose_admin_helper'
