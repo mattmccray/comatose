@@ -7,7 +7,7 @@ Be sure and install the acts_as_tree and acts_as_list plugins!
 
 From here you'll want to run:
 
-  $ ./script/generate comatose_migration
+  $ rails generate comatose
   
 NOTE: The generator will add the default comatose routes to the top of your routes.rb file. You'll want to move `map.comatose_root ''` to the bottom of your routes block.
 

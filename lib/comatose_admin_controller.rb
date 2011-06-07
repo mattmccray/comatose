@@ -71,7 +71,7 @@ class ComatoseAdminController < ActionController::Base
   def versions
     @page = ComatosePage.find params[:id]
     @version_num = (params[:version] || @page.versions.length).to_i
-    @version = @page.find_version(@version_num)
+    @version = @page.versions.find_by_version(@version_num)
   end
 
   # Reverts a page to a specific version...
@@ -111,6 +111,7 @@ class ComatoseAdminController < ActionController::Base
     rescue
       content = "<p>There was an error generating the preview.</p><p><pre>#{$!.to_s.gsub(/\</, '&lt;')}</pre></p>"
     end
+		content = content.html_safe
     render :text=>content, :layout => false
   end
 

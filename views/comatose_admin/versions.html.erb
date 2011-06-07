@@ -11,11 +11,11 @@
     Version <%= @version_num %>
   </div>
   <div class="meta">
-    <label class="title"><span>Title:</span><%= @version.title.html_safe %></label>
-    <label><span>Slug:</span> <%= @version.slug.html_safe %></label>
-    <label><span>Keywords:</span> <%= @version.keywords.html_safe %></label>
+    <label class="title"><span>Title:</span><%= @version.title.to_s.html_safe %></label>
+    <label><span>Slug:</span> <%= @version.slug.to_s.html_safe %></label>
+    <label><span>Keywords:</span> <%= @version.keywords.to_s.html_safe %></label>
   </div>
-  <%= @version.body.split("\n").join('<br/>').html_safe unless @version.body.nil? %>
+  <%= @version.body.split("\n").join('<br/>').to_s.html_safe unless @version.body.nil? %>
   <div id="button-group" class="footer">
     <% form_tag :action=>'set_version', :id => @page, :version => @version_num do %>
       <%= submit_tag "Set As Current Version" %>
@@ -30,11 +30,11 @@
     Current Version
   </div>
   <div class="meta">
-    <label class="title"><span>Title:</span><%= @page.title.html_safe %></label>
-    <label><span>Slug:</span> <%= @page.slug.html_safe %></label>
-    <label><span>Keywords:</span> <%= @page.keywords.html_safe %></label>
+    <label class="title"><span>Title:</span><%= @page.title.to_s.html_safe %></label>
+    <label><span>Slug:</span> <%= @page.slug.to_s.html_safe %></label>
+    <label><span>Keywords:</span> <%= @page.keywords.to_s.html_safe %></label>
 	</div>
-  <%= @page.body.split("\n").join('<br/>').html_safe unless @page.body.nil? %>
+  <%= @page.body.split("\n").join('<br/>').to_s.html_safe unless @page.body.nil? %>
 </div>
 
 <div style="clear:both">&nbsp;</div>
