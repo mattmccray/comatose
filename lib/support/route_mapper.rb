@@ -40,7 +40,7 @@ ActionDispatch::Routing::Mapper.class_eval do
     }.merge(options)
     opts[:as] = opts.delete(:named_route)
 		opts[:request_method] = :get
-    match(":controller(/:action(/:id))", opts )
+    match("comatose_admin(/:action(/:id))", opts )
 
 
   end
