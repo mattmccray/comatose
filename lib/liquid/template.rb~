@@ -72,7 +72,6 @@ module Liquid
     #    filters and tags and might be useful to integrate liquid more with its host application  
     #
     def render(assigns = {}, options = nil)
-puts "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
       options = { :filters => options } unless options.is_a?(Hash)
       context = Context.new(assigns, options[:registers])
       
@@ -82,8 +81,8 @@ puts "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
       end
             
       # render the nodelist.
-      # for performance reasons we get a array back here. to_s will make a string out of it
-      @root.render(context).to_s
+      # for performance reasons we get a array back here. join will make a string out of it
+      @root.render(context).join
     end
   end  
 end

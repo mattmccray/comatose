@@ -81,8 +81,8 @@ module Liquid
       end
             
       # render the nodelist.
-      # for performance reasons we get a array back here. to_s will make a string out of it
-      @root.render(context).to_s
+      # for performance reasons we get a array back here. join will make a string out of it
+      @root.render(context).join
     end
   end  
 end
