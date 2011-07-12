@@ -1,7 +1,7 @@
 require 'fileutils'
 
-# Copy the images (*.gif) into RAILS_ROOT/public/images/comatose
-RAILS_ROOT = File.expand_path( File.join(File.dirname(__FILE__), '../../../') )
+# Copy the images (*.gif) into Rails.root/public/images/comatose
+Rails.root = File.expand_path( File.join(File.dirname(__FILE__), '../../../') )
 
 unless FileTest.exist? File.join(Rails.root.to_s, 'public', 'images', 'comatose')
   FileUtils.mkdir( File.join(Rails.root.to_s, 'public', 'images', 'comatose') )
