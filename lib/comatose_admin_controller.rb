@@ -1,7 +1,7 @@
 # The controller for serving cms content...
 class ComatoseAdminController < ActionController::Base
   unloadable
-    
+
   define_option :original_template_root, nil
   define_option :plugin_layout_path, File.join( '..', '..', '..', 'vendor', 'plugins', 'comatose', 'views', 'layouts' )
 
@@ -19,7 +19,7 @@ class ComatoseAdminController < ActionController::Base
     # Clear the page cache for this page... ?
     @page = ComatosePage.find params[:id]
     @root_pages = [fetch_root_page].flatten
-    if request.post?
+    if request.put?
       @page.update_attributes(params[:page])
       @page.updated_on = Time.now
       @page.author = fetch_author_name
@@ -132,11 +132,11 @@ class ComatoseAdminController < ActionController::Base
     else
       @errors = generate_all_pages_html(params)
     end
-    if @errors.length == 0 
+    if @errors.length == 0
       flash[:notice] = "Pages Cached Successfully"
     else
       flash[:notice] = "Pages Cache Error(s): #{@errors.join(', ')}"
-      flash[:cache_errors] = @errors 
+      flash[:cache_errors] = @errors
     end
     redirect_to :controller=>self.controller_name, :action=>'index'
   end
@@ -193,10 +193,10 @@ protected
       send(Comatose.config.admin_get_root_page)
     elsif defined? get_root_page
       get_root_page
-    end      
+    end
   end
 
-  # Sets the HTTP content-type header based on what's configured 
+  # Sets the HTTP content-type header based on what's configured
   # in Comatose.config.content_type
   def set_content_type
     response.headers["Content-Type"] = "text/html; charset=#{Comatose.config.content_type}" unless Comatose.config.content_type.nil?
@@ -238,7 +238,7 @@ protected
       end
     end
   end
-  
+
   # Calls the class methods of the same name...
   def expire_cms_page(page)
     self.class.expire_cms_page(page)
@@ -246,7 +246,7 @@ protected
   def expire_cms_pages_from_bottom(page)
     self.class.expire_cms_pages_from_bottom(page)
   end
-  
+
 
   # expire the page from the fragment cache
   def expire_cms_fragment(page)
@@ -256,7 +256,7 @@ protected
 
   # expire pages starting at a specific node
   def expire_cms_fragments_from_bottom(page)
-    pages = page.is_a?(Array) ? page : [page] 
+    pages = page.is_a?(Array) ? page : [page]
     pages.each do |page|
       page.children.each {|c| expire_cms_fragments_from_bottom( c ) } if !page.children.empty?
       expire_cms_fragment( page )
@@ -269,7 +269,7 @@ protected
     # Walks all the way down, and back up the tree -- the allows the expire_cms_page
     # to delete empty directories better
     def expire_cms_pages_from_bottom(page)
-      pages = page.is_a?(Array) ? page : [page] 
+      pages = page.is_a?(Array) ? page : [page]
       pages.each do |page|
         page.children.each {|c| expire_cms_pages_from_bottom( c ) } if !page.children.empty?
         expire_cms_page( page )
@@ -291,7 +291,7 @@ protected
         rescue
           # It probably isn't empty -- just as well we leave it be
           #STDERR.puts " - Couldn't delete dir #{dir_path} -> #{$!}"
-        end 
+        end
       end
     end
 
@@ -304,7 +304,7 @@ protected
         params[:layout]
       end
     end
-  
+
     def configure_template_root
       if self.runtime_mode == :unknown
         if FileTest.exist? File.join(Rails.root.to_s, 'public', 'javascripts', 'comatose_admin.js')
@@ -318,7 +318,7 @@ protected
     def runtime_mode
       @@runtime_mode ||= :unknown
     end
-  
+
     def runtime_mode=(mode)
       admin_view_path = File.expand_path(File.join( File.dirname(__FILE__), '..', 'views'))
       if self.respond_to?(:template_root)
@@ -336,12 +336,12 @@ protected
     end
 
   end
-  
+
   # Check to see if we are in 'embedded' mode, or are being 'customized'
   #  embedded   = runtime_mode of :plugin
   #  customized = runtime_mode of :application
   configure_template_root
-  
+
   #
   # Include any modules...
   Comatose.config.admin_includes.each do |mod|
@@ -366,7 +366,7 @@ protected
   end
 
   private
-  
+
   def page_to_hash(page)
     data = page.attributes.clone
     # Pull out the specific, or unnecessary fields
@@ -392,9 +392,10 @@ logger.debug "BBBBBBBBBBBBBBBBBBB"
       if child_pg = page.children.find_by_slug( child_hsh['slug'] )
         hash_to_page_tree( child_hsh, child_pg )
       else
-        hash_to_page_tree( child_hsh, page.children.create )      
+        hash_to_page_tree( child_hsh, page.children.create )
       end
     end if child_ary
   end
-  
+
 end
+
