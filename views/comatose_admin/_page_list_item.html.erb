@@ -28,7 +28,7 @@ collapse_children = (level >= Comatose.config.default_tree_level)
         <%=  image_tag( ((collapse_children) ? 'comatose/collapsed.gif' : 'comatose/expanded.gif'), :title=>'Expand/Collapse', :onclick=>"ComatoseList.toggle_tree_nodes(this,#{page.id});", :class=>'tree-controller', :size=>'12x12', :id=>"page_controller_#{page.id}" ) %>
       <% else %>
         <%= image_tag 'comatose/no-children.gif', :size=>'12x12', :class=>'tree-controller' %>
-      <% end %>        
+      <% end %>
       </td>
       <td rowspan="2" valign="center">
         <%= image_tag 'comatose/page.gif', :size=>'25x31', :align=>"absmiddle" %>
@@ -52,9 +52,10 @@ collapse_children = (level >= Comatose.config.default_tree_level)
     <% end %>
   </ul>
 
-  <%= sortable_element( "page_list_#{page.id}", 
-        :complete => visual_effect(:highlight, "page_list_#{page.id}"), 
+  <%= sortable_element( "page_list_#{page.id}",
+        :complete => visual_effect(:highlight, "page_list_#{page.id}"),
         :handle=>'handle',
         :update=>'flash-content',
         :url => { :action => "reorder", :id=>page } ) if !page.children.empty? and page.children.length > 1 %>
 </li>
+
