@@ -50,7 +50,7 @@ For more information, see the [Getting Started][] guide.
 ### Installation
 
     $ rails plugin install git://github.com/niciliketo/comatose.git
-    $ rails comatose
+    $ rails generate comatose
     $ rake db:migrate
 
 Open your `routes.rb` and move the following comatose route to the 
