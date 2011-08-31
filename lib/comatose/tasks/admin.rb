@@ -13,25 +13,25 @@ namespace :comatose do
       plugin_dir = File.join(File.dirname(__FILE__), '../../..')
       FileUtils.cp( 
         Dir[File.join(plugin_dir, 'resources', 'public', 'stylesheets', '*.css')], 
-        File.join(RAILS_ROOT, 'public', 'stylesheets'),
+        File.join(Rails.root.to_s, 'public', 'stylesheets'),
         :verbose => true
       )
       FileUtils.cp( 
         Dir[File.join(plugin_dir, 'resources', 'public', 'javascripts', '*.js')], 
-        File.join(RAILS_ROOT, 'public', 'javascripts'),
+        File.join(Rails.root.to_s, 'public', 'javascripts'),
         :verbose => true
       )
       puts "Copying application views..."
-      FileUtils.mkdir_p(File.join(RAILS_ROOT, 'app', 'views', 'comatose_admin'))
+      FileUtils.mkdir_p(File.join(Rails.root, 'app', 'views', 'comatose_admin'))
       FileUtils.cp( 
         Dir[File.join(plugin_dir, 'views', 'comatose_admin', '*.html.erb')], 
-        File.join(RAILS_ROOT, 'app', 'views', 'comatose_admin'),
+        File.join(Rails.root.to_s, 'app', 'views', 'comatose_admin'),
         :verbose => true
       )
       puts "Copying application layout..."
       FileUtils.cp( 
         File.join(plugin_dir, 'views', 'layouts', 'comatose_admin_customize.html.erb'), 
-        File.join(RAILS_ROOT, 'app', 'views', 'layouts', 'comatose_admin.html.erb'),
+        File.join(Rails.root.to_s, 'app', 'views', 'layouts', 'comatose_admin.html.erb'),
         :verbose => true
       )
       puts "Finished."
@@ -42,18 +42,18 @@ namespace :comatose do
     task :teardown do
       puts "Removing public files..."
       FileUtils.rm(
-        File.join(RAILS_ROOT, 'public', 'stylesheets', 'comatose_admin.css')
+        File.join(Rails.root.to_s, 'public', 'stylesheets', 'comatose_admin.css')
       )
       FileUtils.rm(
-        File.join(RAILS_ROOT, 'public', 'javascripts', 'comatose_admin.js')
+        File.join(Rails.root.to_s, 'public', 'javascripts', 'comatose_admin.js')
       )
     
       puts "Removing application views..."
       FileUtils.rm_rf(
-        File.join(RAILS_ROOT, 'app', 'views', 'comatose_admin')
+        File.join(Rails.root.to_s, 'app', 'views', 'comatose_admin')
       )
       FileUtils.rm(
-        File.join(RAILS_ROOT, 'app', 'views', 'layouts', 'comatose_admin.html.erb')
+        File.join(Rails.root.to_s, 'app', 'views', 'layouts', 'comatose_admin.html.erb')
       )
     end
   end

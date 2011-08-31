@@ -4,7 +4,7 @@ class ComatosePage < ActiveRecord::Base
 end
 
 
-class <%= class_name %> < ActiveRecord::Migration
+class ComatoseMigration < ActiveRecord::Migration
 
   # Schema for Comatose version 0.7+
   def self.up

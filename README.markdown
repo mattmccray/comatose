@@ -1,6 +1,7 @@
+
 # Comatose
 
-* Version: 2.0.5 (beta)
+* Version: 3.0.0 
 * Author:  M@ McCray
 * Website: comatose.rubyforge.org
 * Email: matt at elucidata dot net
@@ -26,16 +27,16 @@ For more information, see the [Getting Started][] guide.
 
 ### Requirements
 
- * Rails 2+ (2.1)
- * `acts_as_list` and `acts_as_tree` plugins are required (at the moment)
+ * Rails 3+ (3.0.7)
+ * `acts_as_list`, `acts_as_tree` and `acts_as_versioned` gems are required (at the moment)
 
 
 ### Development Notes
 
-*NOTE*: This is an active branch of Comatose that is built specifically for Rails 2.1.
+*NOTE*: This is an active branch of Comatose that is built specifically for Rails 3.0.
         I will *probably* remove any legacy support.
 
- * Make comatose fully self-contained, which means removing `acts_as_(tree|list)`
+ * Make comatose fully self-contained, which means removing `acts_as_(tree|list|versioned)`
  * Improve `ComatoseAdminController` to reduce number of DB calls for building the page tree
  * Move to gem plugin
  * `Comatose.configure` needs to be an initializer (update docs)
@@ -48,11 +49,8 @@ For more information, see the [Getting Started][] guide.
 
 ### Installation
 
-*Note*: See the 'Upgrading' section if you already have an older version of 
-        the comatose plugin installed.
-
-    $ ./script/plugin install git://github.com/darthapo/comatose.git
-    $ ./script/generate comatose_migration
+    $ rails plugin install git://github.com/niciliketo/comatose.git
+    $ rails generate comatose
     $ rake db:migrate
 
 Open your `routes.rb` and move the following comatose route to the 

@@ -8,7 +8,7 @@ class ComatoseAdminController
   def rescue_action(e) raise e end
 end
 
-class ComatoseAdminControllerTest < Test::Unit::TestCase
+class ComatoseAdminControllerTest < ActiveSupport::TestCase
 
   fixtures :comatose_pages
     

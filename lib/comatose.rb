@@ -2,9 +2,9 @@
 module Comatose
 
   # DEPRECATED
-  # Loads extensions from RAILS_ROOT/lib/comatose/*.rb
+  # Loads extensions from Rails.root/lib/comatose/*.rb
   def self.load_extensions
-    Dir[File.join(RAILS_ROOT, 'lib', 'comatose', '*.rb')].each do |path|
+    Dir[File.join(Rails.root.to_s, 'lib', 'comatose', '*.rb')].each do |path|
       require "comatose/#{File.basename(path)}"
     end
   end
@@ -27,7 +27,9 @@ require 'comatose/version'
 require 'support/inline_rendering'
 require 'support/route_mapper'
 
-require 'dispatcher' unless defined?(::Dispatcher)
-::Dispatcher.to_prepare :comatose do
+#require 'dispatcher' unless defined?(::Dispatcher)
+#ActionController::Dispatcher.to_prepare is deprecated. " <<
+#          "Please use config.to_prepare instead
+ActionDispatch::Callbacks.to_prepare :comatose do
     Comatose.config.after_setup.call
 end

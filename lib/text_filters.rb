@@ -108,7 +108,7 @@ private
   def process_with_liquid(text, context={})
     begin
       context = context.stringify_keys if context.respond_to? :stringify_keys
-      Liquid::Template.parse(text).render(context)
+  		Liquid::Template.parse(text).render(context)
     rescue
       raise "Liquid Error: #{$!}"
     end
