@@ -267,7 +267,6 @@ class RedCloth < String
         rules = DEFAULT_RULES if rules.empty?
         # make our working copy
         text = self.dup
-        
         @urlrefs = {}
         @shelf = []
         textile_rules = [:refs_textile, :block_textile_table, :block_textile_lists,
@@ -309,6 +308,7 @@ class RedCloth < String
         text.gsub!( /x%x%/, '&#38;' )
         clean_html text if filter_html
         text.strip!
+
         text
 
     end

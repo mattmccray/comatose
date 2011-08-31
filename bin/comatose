@@ -9,7 +9,7 @@ options = {
 
 begin
   OptionParser.new do |opts|
-    opts.banner = "Usage: comatose [options] RAILS_ROOT"
+    opts.banner = "Usage: comatose [options] Rails.root"
     
     opts.on("-g", "--gem", "Initialize to run from gem (DEFAULT)") do |s| 
       options[:action] = :gem
@@ -53,7 +53,7 @@ if args.length == 0
   exit 
 end
 
-RAILS_ROOT = File.expand_path( args.last )
+Rails.root = File.expand_path( args.last )
 
 class String
   def /(string)
@@ -61,12 +61,12 @@ class String
   end
 end
 
-unless File.directory?(RAILS_ROOT) and File.exists?( RAILS_ROOT / 'config'/ 'boot.rb' )
+unless File.directory?(Rails.root) and File.exists?( Rails.root / 'config'/ 'boot.rb' )
   puts "Not a valid rails application path."
   exit
 end
 
-comatose_initializer_path = RAILS_ROOT / 'config' / 'initializers' / 'comatose.rb'
+comatose_initializer_path = Rails.root / 'config' / 'initializers' / 'comatose.rb'
 
 unless File.exists?( comatose_initializer_path )
   File.open(comatose_initializer_path, 'w') do |f|

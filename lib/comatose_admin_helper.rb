@@ -12,6 +12,8 @@ module ComatoseAdminHelper
     selected = nodes[0].id if selected.nil? and not add_initial
     nodes.each {|node| select_box += add_select_tree_node(node, selected, level, hide) }
     select_box += ''
+		select_box = select_box.html_safe
+return select_box
   end
   # Called by tree_select_box
   def add_select_tree_node(node, selected, level, hide)
@@ -33,5 +35,13 @@ module ComatoseAdminHelper
     end
     select_box
   end
+
+	def form_url(page)
+		if page.id
+			action="/comatose_admin/edit/#{page.id}"
+		else
+			action="/comatose_admin/new"
+		end
+	end
   
 end

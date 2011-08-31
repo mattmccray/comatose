@@ -31,7 +31,7 @@ protected
       html = render_comatose_page( page_path, params )
       controller.write_fragment(key, html) unless Comatose.config.disable_caching
     end
-    html
+    html.html_safe
   end
   
   def render_comatose_page(page_path, params)
@@ -42,7 +42,8 @@ protected
     else
       html = params[:silent] ? '' : "<p><tt>#{page_path}</tt> not found</p>"
     end
+  	html.html_safe
   end
-  
+
 end
 

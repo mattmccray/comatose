@@ -2,19 +2,18 @@
 ======================
  Welcome to Comatose!
 ======================
-
-Be sure and install the acts_as_tree and acts_as_list plugins!
-
 From here you'll want to run:
 
-  $ ./script/generate comatose_migration
+  $ rails generate comatose
   
-NOTE: The generator will add the default comatose routes to the top of your routes.rb file. You'll want to move `map.comatose_root ''` to the bottom of your routes block.
+NOTE: The generator will add the default comatose routes to the top of your routes.rb file.  It will also add an example route mapping for cms pages, however this will be commented out.
+ You'll want to move `comatose_admin` and `#comatose_root '', :layout => comatose_content , :use_cache => false` to the bottom of your routes block. You'll want to modify or remove the # for the example route mapping for cms pages.
+			The generator will add several required gems to your GemFile  acts_as_tree, acts_as_list and acts_as_versioned gems!
 
 When that's finished, run:
 
   $ rake db:migrate
-
+	$ bundle install
 That's it for the Comatose setup! 
 
 Be sure to read the README file, and the 'Getting Started' guide. They are located at vendor/plugins/comatose/README and http://comatose.rubyforge.org/getting-started-guide respectively.
