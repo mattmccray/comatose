@@ -10,12 +10,12 @@ namespace :comatose do
     desc "If the installation didn't add the images correctly, use this task"
     task :copy_images do
       plugin_dir = File.join(File.dirname(__FILE__), '..')
-      unless FileTest.exist? File.join(RAILS_ROOT, 'public', 'images', 'comatose')
-        FileUtils.mkdir( File.join(RAILS_ROOT, 'public', 'images', 'comatose') )
+      unless FileTest.exist? File.join(Rails.root, 'public', 'images', 'comatose')
+        FileUtils.mkdir( File.join(Rails.root, 'public', 'images', 'comatose') )
       end
       FileUtils.cp( 
         Dir[File.join(plugin_dir, 'resources', 'public', 'images', '*.gif')], 
-        File.join(RAILS_ROOT, 'public', 'images', 'comatose'),
+        File.join(Rails.root, 'public', 'images', 'comatose'),
         :verbose => true
       )
       puts "Finished."
