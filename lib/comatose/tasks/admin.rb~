@@ -22,7 +22,7 @@ namespace :comatose do
         :verbose => true
       )
       puts "Copying application views..."
-      FileUtils.mkdir_p(File.join(RAILS_ROOT, 'app', 'views', 'comatose_admin'))
+      FileUtils.mkdir_p(File.join(Rails.root, 'app', 'views', 'comatose_admin'))
       FileUtils.cp( 
         Dir[File.join(plugin_dir, 'views', 'comatose_admin', '*.html.erb')], 
         File.join(Rails.root.to_s, 'app', 'views', 'comatose_admin'),
