@@ -35,7 +35,7 @@ namespace :comatose do
 
     desc "Saves a page tree from page FROM or '' to file TO_FILE or db/comatose-pages.yml"
     task :export do 
-      require "#{RAILS_ROOT}/config/environment"
+      require "#{Rails.root}/config/environment"
 
       root = ENV['FROM'] || ''
       target = ENV['TO_FILE'] || 'db/comatose-pages.yml'
@@ -53,7 +53,7 @@ namespace :comatose do
 
     desc "Loads page tree data FROM_FILE or db/comatose-pages.yml in to TO or ComatosePage.root"
     task :import do 
-      require "#{RAILS_ROOT}/config/environment"
+      require "#{Rails.root}/config/environment"
 
       src = ENV['FROM_FILE'] || 'db/comatose-pages.yml'
       root = ENV['TO'] || ''
